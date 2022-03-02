@@ -10,11 +10,11 @@ public class QuestionTest {
 
     @Test
     void questionHasIDChallengeQuestionIMGAndChallengeIDProperty() {
-        Question question = new Question(1L, "fotoDeTest","Como estás?");
+        Question question = new Question(1L, "fotoDeTest","Como estás?", 1L);
         assertThat(question.getId(), equalTo(1L));
         assertThat(question.getImgUrl(), equalTo("fotoDeTest"));
         assertThat(question.getChallengeQuestion(),equalTo("Como estás?"));
-        
-
+        assertThat(question.getChallengeId(),equalTo(1L));
     }
+
 }
