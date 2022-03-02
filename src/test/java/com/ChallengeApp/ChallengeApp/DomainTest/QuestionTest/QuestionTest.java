@@ -1,4 +1,4 @@
-package com.ChallengeApp.ChallengeApp.QuestionTest;
+package com.ChallengeApp.ChallengeApp.DomainTest.QuestionTest;
 
 import com.ChallengeApp.ChallengeApp.Models.Question;
 import org.junit.jupiter.api.Test;
