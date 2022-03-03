@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 
-public interface ChallengeAppRepository extends JpaRepository <Challenge, Integer>{
+public interface ChallengeAppRepository extends JpaRepository <Challenge, Long>{
 
 }
