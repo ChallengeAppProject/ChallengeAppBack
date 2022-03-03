@@ -11,4 +11,9 @@ public interface ChallengeService {
     public Challenge get(Long id);
 
     List<Challenge> getAllChallenges();
+
+
+    public Challenge saveChallenge(Challenge challenge);
+
+
 }

@@ -37,5 +37,10 @@ public class ChallengeController {
 
 
     }
+    @PostMapping("/challenges")
+    public String addChallenge(@RequestBody Challenge challenge) {
+        challengeService.saveChallenge(challenge);
+        return "New Challenge created";
+    }
 
 }

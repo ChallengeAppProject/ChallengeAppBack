@@ -5,9 +5,7 @@ import com.ChallengeApp.ChallengeApp.Models.Question;
 import com.ChallengeApp.ChallengeApp.Services.ChallengeService;
 import com.ChallengeApp.ChallengeApp.Services.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,7 +18,15 @@ public class QuestionController {
     private QuestionService questionService;
 
     @GetMapping("/questions")
-    public List<Question> getAllQuestion(){
+    public List<Question> getAllQuestion() {
         return questionService.getAllQuestion();
     }
+
+
+    @PostMapping("/questions")
+    public String addQuestion(@RequestBody Question question) {
+        questionService.saveQuestion(question);
+        return "New question created";
+    }
+
 }

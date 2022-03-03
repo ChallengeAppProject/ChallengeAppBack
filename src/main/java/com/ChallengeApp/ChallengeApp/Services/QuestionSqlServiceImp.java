@@ -16,4 +16,9 @@ public class QuestionSqlServiceImp implements QuestionService {
     public List<Question> getAllQuestion(){
         return questionRepository.findAll();
     }
+
+    @Override
+    public Question saveQuestion(Question question){
+        return questionRepository.save(question);
+    }
 }

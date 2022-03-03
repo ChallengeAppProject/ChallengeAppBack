@@ -23,4 +23,9 @@ public class ChallengeSqlServiceImpl implements ChallengeService {
         return challengeAppRepository.findAll();
     }
 
+    @Override
+    public Challenge saveChallenge(Challenge challenge) {
+        return challengeAppRepository.save(challenge);
+    }
+
 }

@@ -8,4 +8,7 @@ import java.util.List;
 public interface QuestionService {
 
     List<Question> getAllQuestion();
+
+    public Question saveQuestion(Question question);
+
 }
