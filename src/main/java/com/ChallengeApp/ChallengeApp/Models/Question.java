@@ -4,15 +4,18 @@ public class Question {
     private Long id;
     private String imgUrl;
     private String challengeQuestion;
-    private Long challengeId;
+    private Challenge challenge;
 
 
 
-    public Question(Long id, String imgUrl, String challengeQuestion, Long challengeId ) {
+    public Question(Long id, String imgUrl, String challengeQuestion, Challenge challenge ) {
         this.id = id;
         this.imgUrl = imgUrl;
         this.challengeQuestion = challengeQuestion;
-        this.challengeId = challengeId;
+        this.challenge = challenge;
+    }
+
+    public Question() {
     }
 
     public Long getId() {
@@ -27,5 +30,5 @@ public class Question {
         return challengeQuestion;
     }
 
-    public Long getChallengeId() {return challengeId;}
+    public Challenge getChallenge() {return challenge;}
 }

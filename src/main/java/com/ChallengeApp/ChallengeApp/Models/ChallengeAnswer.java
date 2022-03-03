@@ -11,15 +11,15 @@ public class ChallengeAnswer {
     private Long id;
     private boolean correctAnswer;
     private String textAnswer;
-    private Long questionId;
+    private Question question;
 
 
 
-    public ChallengeAnswer(Long id, boolean correctAnswer, String textAnswer, Long questionId) {
+    public ChallengeAnswer(Long id, boolean correctAnswer, String textAnswer, Question question) {
         this.id = id;
         this.correctAnswer = correctAnswer;
         this.textAnswer = textAnswer;
-        this.questionId = questionId;
+        this.question = question;
     }
 
     public Long getId() {
@@ -34,7 +34,7 @@ public class ChallengeAnswer {
         return textAnswer;
     }
 
-    public Long getQuestionId() {
-        return questionId;
+    public Question getQuestion() {
+        return question;
     }
 }

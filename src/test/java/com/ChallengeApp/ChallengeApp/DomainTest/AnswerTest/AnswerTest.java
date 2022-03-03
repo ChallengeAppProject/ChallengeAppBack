@@ -1,6 +1,7 @@
 package com.ChallengeApp.ChallengeApp.DomainTest.AnswerTest;
 
 import com.ChallengeApp.ChallengeApp.Models.ChallengeAnswer;
+import com.ChallengeApp.ChallengeApp.Models.Question;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -11,10 +12,12 @@ public class AnswerTest {
     @Test
 
      void answerHasIDQuestionIDAnswerBooleanIDProperties(){
-        ChallengeAnswer challengeAnswer = new ChallengeAnswer(1L, true, "text answer", 1L);
+        Question questionCiencias = new Question();
+        ChallengeAnswer challengeAnswer = new ChallengeAnswer(1L, true, "text answer", questionCiencias);
+
         assertThat(challengeAnswer.getId(), equalTo(1L));
         assertTrue(challengeAnswer.isCorrect());
         assertThat(challengeAnswer.getTextAnswer(), equalTo("text answer"));
-        assertThat(challengeAnswer.getQuestionId(), equalTo(1L));
+        assertThat(challengeAnswer.getQuestion(), equalTo(questionCiencias));
     }
 }

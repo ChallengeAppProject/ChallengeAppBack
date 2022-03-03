@@ -1,5 +1,6 @@
 package com.ChallengeApp.ChallengeApp.DomainTest.QuestionTest;
 
+import com.ChallengeApp.ChallengeApp.Models.Challenge;
 import com.ChallengeApp.ChallengeApp.Models.Question;
 import org.junit.jupiter.api.Test;
 
@@ -10,11 +11,13 @@ public class QuestionTest {
 
     @Test
     void questionHasIDChallengeQuestionIMGAndChallengeIDProperty() {
-        Question question = new Question(1L, "fotoDeTest","Como estás?", 1L);
+        Challenge challengeCiencias = new Challenge(1L, "Prueba");
+        Question question = new Question(1L, "fotoDeTest","Como estás?", challengeCiencias);
+
         assertThat(question.getId(), equalTo(1L));
         assertThat(question.getImgUrl(), equalTo("fotoDeTest"));
         assertThat(question.getChallengeQuestion(),equalTo("Como estás?"));
-        assertThat(question.getChallengeId(),equalTo(1L));
+        assertThat(question.getChallenge(),equalTo(challengeCiencias));
     }
 
 }
