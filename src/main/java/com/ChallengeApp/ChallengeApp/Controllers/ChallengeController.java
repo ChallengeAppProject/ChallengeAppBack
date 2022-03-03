@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @RestController
@@ -16,6 +17,12 @@ public class ChallengeController {
 
     @Autowired
     private ChallengeService challengeService;
+
+    @GetMapping("/challenges")
+    public List<Challenge> getAllChallenges(){
+        return challengeService.getAllChallenges();
+    }
+
 
     @GetMapping("/challenges/{id}")
     public ResponseEntity<Challenge> get(@PathVariable Long id) {
