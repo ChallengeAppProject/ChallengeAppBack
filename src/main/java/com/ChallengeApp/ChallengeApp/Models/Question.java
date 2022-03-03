@@ -1,9 +1,6 @@
 package com.ChallengeApp.ChallengeApp.Models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Question {
@@ -12,6 +9,8 @@ public class Question {
     private Long id;
     private String imgUrl;
     private String challengeQuestion;
+    @ManyToOne
+    @JoinColumn(name = "challenge_id")
     private Challenge challenge;
 
 

@@ -1,9 +1,6 @@
 package com.ChallengeApp.ChallengeApp.Models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class ChallengeAnswer {
@@ -13,9 +10,12 @@ public class ChallengeAnswer {
     private Long id;
     private boolean correctAnswer;
     private String textAnswer;
+    @ManyToOne
+    @JoinColumn(name = "question_id")
     private Question question;
 
-
+    public ChallengeAnswer() {
+    }
 
     public ChallengeAnswer(Long id, boolean correctAnswer, String textAnswer, Question question) {
         this.id = id;
