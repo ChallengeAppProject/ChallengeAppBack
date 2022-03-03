@@ -1,4 +1,4 @@
-package com.ChallengeApp.ChallengeApp.services;
+package com.ChallengeApp.ChallengeApp.Services;
 
 import com.ChallengeApp.ChallengeApp.Models.Challenge;
 import com.ChallengeApp.ChallengeApp.Repositories.ChallengeAppRepository;
