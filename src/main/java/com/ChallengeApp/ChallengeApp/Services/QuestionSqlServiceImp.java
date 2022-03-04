@@ -12,6 +12,9 @@ public class QuestionSqlServiceImp implements QuestionService {
     @Autowired
     private QuestionRepository questionRepository;
 
+    @Autowired
+    public Question get(Long id)  {return questionRepository.findById(id).get();}
+
     @Override
     public List<Question> getAllQuestion(){
         return questionRepository.findAll();
