@@ -4,7 +4,7 @@ import com.ChallengeApp.ChallengeApp.Models.Question;
 import com.ChallengeApp.ChallengeApp.Repositories.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import java.lang.Long;
 import java.util.List;
 
 @Service
@@ -12,7 +12,7 @@ public class QuestionSqlServiceImp implements QuestionService {
     @Autowired
     private QuestionRepository questionRepository;
 
-    @Autowired
+   @Override
     public Question get(Long id)  {return questionRepository.findById(id).get();}
 
     @Override

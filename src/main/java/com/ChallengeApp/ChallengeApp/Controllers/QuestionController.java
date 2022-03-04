@@ -1,8 +1,6 @@
 package com.ChallengeApp.ChallengeApp.Controllers;
 
-import com.ChallengeApp.ChallengeApp.Models.Challenge;
 import com.ChallengeApp.ChallengeApp.Models.Question;
-import com.ChallengeApp.ChallengeApp.Services.ChallengeService;
 import com.ChallengeApp.ChallengeApp.Services.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
