@@ -24,4 +24,7 @@ public class AnswerSqlServiceImpl implements AnswerService{
     public ChallengeAnswer saveAnswer(ChallengeAnswer challengeAnswer){
         return answerRepository.save(challengeAnswer);
     }
+
+    @Override
+    public ChallengeAnswer get(Long id)  {return answerRepository.findById(id).get();}
 }
