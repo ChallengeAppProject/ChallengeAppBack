@@ -12,7 +12,7 @@ import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping
-//@CrossOrigin
+@CrossOrigin
 public class ChallengeController {
 
     @Autowired

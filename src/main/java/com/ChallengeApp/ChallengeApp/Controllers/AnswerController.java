@@ -14,7 +14,7 @@ import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping
-
+@CrossOrigin
 public class AnswerController {
 
     @Autowired
