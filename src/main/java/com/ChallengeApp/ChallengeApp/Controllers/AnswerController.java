@@ -28,8 +28,7 @@ public class AnswerController {
    public String addAnswer(@RequestBody ChallengeAnswer challengeAnswer) {
     answerService.saveAnswer(challengeAnswer);
     return "New answer created";
-}
-
+    }
     @GetMapping("/answers/{id}")
     public ResponseEntity<ChallengeAnswer> get(@PathVariable Long id) {
 
@@ -42,4 +41,23 @@ public class AnswerController {
         }
 
     }
+
+    @DeleteMapping("/answers/{id}")
+    public String delete(@PathVariable Long id){
+        answerService.delete(id);
+        return "Deleted answer "+id;
+    }
+
+    @PutMapping("/answers/{id}")
+    public ResponseEntity<ChallengeAnswer> update (@RequestBody ChallengeAnswer challengeAnswer, @PathVariable Long id) {
+        try {
+            ChallengeAnswer existingChallengeAnswer = answerService.get(id);
+            answerService.save(challengeAnswer);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<ChallengeAnswer>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+
 }
