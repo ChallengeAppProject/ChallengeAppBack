@@ -9,8 +9,11 @@ import java.util.List;
 
 @Service
 public class ChallengeSqlServiceImpl implements ChallengeService {
+    public ChallengeSqlServiceImpl(ChallengeAppRepository challengeAppRepository) {
+        this.challengeAppRepository = challengeAppRepository;
+    }
 
-    @Autowired
+
     private ChallengeAppRepository challengeAppRepository;
 
     @Override

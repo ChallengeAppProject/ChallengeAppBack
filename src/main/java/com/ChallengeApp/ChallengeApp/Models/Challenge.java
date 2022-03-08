@@ -33,7 +33,7 @@ public class Challenge {
     }
 
 
-
-
+    public void setName(String newChallenge) {
+    }
 }
 
