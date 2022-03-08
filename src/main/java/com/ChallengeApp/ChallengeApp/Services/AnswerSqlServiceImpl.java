@@ -1,5 +1,6 @@
 package com.ChallengeApp.ChallengeApp.Services;
 
+import com.ChallengeApp.ChallengeApp.Models.Challenge;
 import com.ChallengeApp.ChallengeApp.Models.ChallengeAnswer;
 import com.ChallengeApp.ChallengeApp.Models.Question;
 import com.ChallengeApp.ChallengeApp.Repositories.AnswerRepository;
@@ -27,4 +28,13 @@ public class AnswerSqlServiceImpl implements AnswerService{
 
     @Override
     public ChallengeAnswer get(Long id)  {return answerRepository.findById(id).get();}
+
+    @Override
+    public void delete (Long id){answerRepository.deleteById(id);
+    }
+    @Override
+    public ChallengeAnswer save(ChallengeAnswer challengeAnswer) {
+        return answerRepository.save(challengeAnswer);
+    }
 }
+
