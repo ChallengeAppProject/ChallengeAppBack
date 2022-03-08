@@ -1,5 +1,6 @@
 package com.ChallengeApp.ChallengeApp.Services;
 
+import com.ChallengeApp.ChallengeApp.Models.Challenge;
 import com.ChallengeApp.ChallengeApp.Models.Question;
 import com.ChallengeApp.ChallengeApp.Repositories.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,15 @@ public class QuestionSqlServiceImp implements QuestionService {
 
     @Override
     public Question saveQuestion(Question question){
+        return questionRepository.save(question);
+    }
+
+    @Override
+    public void delete (Long id){questionRepository.deleteById(id);
+    }
+
+    @Override
+    public Question save(Question question) {
         return questionRepository.save(question);
     }
 }

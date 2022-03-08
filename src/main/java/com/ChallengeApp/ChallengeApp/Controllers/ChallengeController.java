@@ -58,4 +58,5 @@ public class ChallengeController {
         } catch (NoSuchElementException e) {
             return new ResponseEntity<Challenge>(HttpStatus.NOT_FOUND);
         }
-    }}
+    }
+}

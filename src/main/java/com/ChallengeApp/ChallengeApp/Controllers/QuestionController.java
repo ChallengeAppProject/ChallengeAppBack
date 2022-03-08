@@ -1,5 +1,6 @@
 package com.ChallengeApp.ChallengeApp.Controllers;
 
+import com.ChallengeApp.ChallengeApp.Models.Challenge;
 import com.ChallengeApp.ChallengeApp.Models.Question;
 import com.ChallengeApp.ChallengeApp.Services.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,5 +42,22 @@ public class QuestionController {
 
         }
 
+    }
+
+    @DeleteMapping("/questions/{id}")
+    public String delete(@PathVariable Long id){
+        questionService.delete(id);
+        return "Deleted question "+id;
+    }
+
+    @PutMapping("/questions/{id}")
+    public ResponseEntity<Question> update (@RequestBody Question question, @PathVariable Long id) {
+        try {
+            Question existingQuestion = questionService.get(id);
+            questionService.save(question);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<Question>(HttpStatus.NOT_FOUND);
+        }
     }
 }
