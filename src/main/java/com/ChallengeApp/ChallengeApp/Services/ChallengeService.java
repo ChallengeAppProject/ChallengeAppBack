@@ -16,4 +16,7 @@ public interface ChallengeService {
     public Challenge saveChallenge(Challenge challenge);
 
 
+    public void delete (Long id);
+
+    public Challenge save (Challenge challenge);
 }

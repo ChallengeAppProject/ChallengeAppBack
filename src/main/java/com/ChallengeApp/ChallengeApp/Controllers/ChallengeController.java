@@ -43,4 +43,19 @@ public class ChallengeController {
         return "New Challenge created";
     }
 
-}
+    @DeleteMapping("/challenges/{id}")
+    public String delete(@PathVariable Long id){
+       challengeService.delete(id);
+        return "Deleted challenge "+id;
+    }
+
+    @PutMapping("/challenges/{id}")
+    public ResponseEntity<Challenge> update (@RequestBody Challenge challenge, @PathVariable Long id) {
+        try {
+            Challenge existingChallenge = challengeService.get(id);
+            challengeService.save(challenge);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<Challenge>(HttpStatus.NOT_FOUND);
+        }
+    }}
