@@ -1,7 +1,17 @@
 package com.ChallengeApp.ChallengeApp.Models;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Question {
     @Id
@@ -14,28 +24,4 @@ public class Question {
     private Challenge challenge;
 
 
-
-    public Question(Long id, String imgUrl, String challengeQuestion, Challenge challenge ) {
-        this.id = id;
-        this.imgUrl = imgUrl;
-        this.challengeQuestion = challengeQuestion;
-        this.challenge = challenge;
-    }
-
-    public Question() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getImgUrl() {
-        return imgUrl;
-    }
-
-    public String getChallengeQuestion() {
-        return challengeQuestion;
-    }
-
-    public Challenge getChallenge() {return challenge;}
 }
