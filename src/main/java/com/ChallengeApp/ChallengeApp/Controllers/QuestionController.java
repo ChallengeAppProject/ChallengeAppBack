@@ -2,16 +2,18 @@ package com.ChallengeApp.ChallengeApp.Controllers;
 
 import com.ChallengeApp.ChallengeApp.Models.Challenge;
 import com.ChallengeApp.ChallengeApp.Models.Question;
-import com.ChallengeApp.ChallengeApp.Services.ChallengeService;
 import com.ChallengeApp.ChallengeApp.Services.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping
-//@CrossOrigin
+@CrossOrigin
 public class QuestionController {
 
     @Autowired
@@ -29,4 +31,33 @@ public class QuestionController {
         return "New question created";
     }
 
+    @GetMapping("/questions/{id}")
+    public ResponseEntity<Question> get(@PathVariable Long id) {
+
+        try {
+            Question question = questionService.get(id);
+            return new ResponseEntity<Question>(question, HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<Question>(HttpStatus.NOT_FOUND);
+
+        }
+
+    }
+
+    @DeleteMapping("/questions/{id}")
+    public String delete(@PathVariable Long id){
+        questionService.delete(id);
+        return "Deleted question "+id;
+    }
+
+    @PutMapping("/questions/{id}")
+    public ResponseEntity<Question> update (@RequestBody Question question, @PathVariable Long id) {
+        try {
+            Question existingQuestion = questionService.get(id);
+            questionService.save(question);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<Question>(HttpStatus.NOT_FOUND);
+        }
+    }
 }

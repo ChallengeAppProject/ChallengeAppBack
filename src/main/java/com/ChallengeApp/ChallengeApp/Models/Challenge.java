@@ -1,11 +1,19 @@
 package com.ChallengeApp.ChallengeApp.Models;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
+@Getter @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Challenge {
 
 @Id
@@ -14,26 +22,5 @@ public class Challenge {
     private Long id;
     private String name;
 
-
-
-    public Challenge() {
-    }
-
-   public Challenge(Long id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-
-    public void setName(String newChallenge) {
-    }
 }
 

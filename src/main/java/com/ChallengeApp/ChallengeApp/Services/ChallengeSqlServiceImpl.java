@@ -30,5 +30,13 @@ public class ChallengeSqlServiceImpl implements ChallengeService {
     public Challenge saveChallenge(Challenge challenge) {
         return challengeAppRepository.save(challenge);
     }
+    @Override
+    public void delete (Long id){challengeAppRepository.deleteById(id);
+    }
+
+    @Override
+    public Challenge save(Challenge challenge) {
+        return challengeAppRepository.save(challenge);
+    }
 
 }
