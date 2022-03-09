@@ -57,5 +57,17 @@ public class ChallengeServiceTest {
 
     }
 
+    @Test
+    void whenUpdatingAChallengeTheChallengeIsUpdated(){
+        Challenge testChallenge = new Challenge(2L,"testChallenge");
+        testChallenge.setName("newTestChallenge");
+        Mockito.when(challengeAppRepository.save(testChallenge)).thenReturn(testChallenge);
+        var challService = new ChallengeSqlServiceImpl(challengeAppRepository);
+
+        var sut = challService.save(testChallenge);
+
+        assertThat(sut.getName(),equalTo("newTestChallenge"));
+    }
+
 
 }

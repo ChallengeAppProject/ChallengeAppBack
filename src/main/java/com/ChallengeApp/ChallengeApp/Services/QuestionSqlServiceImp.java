@@ -10,10 +10,16 @@ import java.util.List;
 
 @Service
 public class QuestionSqlServiceImp implements QuestionService {
-    @Autowired
+
+    public QuestionSqlServiceImp(QuestionRepository questionRepository) {
+        this.questionRepository = questionRepository;
+    }
+
     private QuestionRepository questionRepository;
 
-   @Override
+
+
+    @Override
     public Question get(Long id)  {return questionRepository.findById(id).get();}
 
     @Override

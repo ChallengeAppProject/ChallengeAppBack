@@ -16,6 +16,10 @@ public class AnswerSqlServiceImpl implements AnswerService{
     @Autowired
     private AnswerRepository answerRepository;
 
+    public AnswerSqlServiceImpl(AnswerRepository answerRepository) {
+        this.answerRepository = answerRepository;
+    }
+
     @Override
     public List<ChallengeAnswer> getAllAnswer(){
         return answerRepository.findAll();
