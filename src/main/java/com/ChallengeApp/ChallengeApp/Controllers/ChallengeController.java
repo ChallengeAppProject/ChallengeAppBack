@@ -1,6 +1,7 @@
 package com.ChallengeApp.ChallengeApp.Controllers;
 
 import com.ChallengeApp.ChallengeApp.Models.Challenge;
+import com.ChallengeApp.ChallengeApp.Models.Question;
 import com.ChallengeApp.ChallengeApp.Services.ChallengeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -58,5 +59,12 @@ public class ChallengeController {
         } catch (NoSuchElementException e) {
             return new ResponseEntity<Challenge>(HttpStatus.NOT_FOUND);
         }
+
     }
+
+ /*   @GetMapping("/challenges/{id}/questions")
+    public List<Question> getAllQuestions(@PathVariable Long id) {
+        return challengeService.getAllQuestionsByChallengeId();
+    }*/
+
 }

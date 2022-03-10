@@ -26,8 +26,8 @@ public class QuestionServiceTest {
     void questionServiceCanSaveAQuestion(){
         Challenge challenge = new Challenge(1L, "ciencias");
         Question question = new Question(1L,"img.jpg","This is useful?",challenge);
-        Mockito.when(questionRepository.save(question)).thenReturn(question);
         var questionSqlServiceImp = new QuestionSqlServiceImp(questionRepository);
+        Mockito.when(questionRepository.save(question)).thenReturn(question);
 
         var sut = questionSqlServiceImp.saveQuestion(question);
 

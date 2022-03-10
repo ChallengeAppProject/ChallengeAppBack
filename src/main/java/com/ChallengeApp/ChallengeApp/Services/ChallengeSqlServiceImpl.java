@@ -1,8 +1,8 @@
 package com.ChallengeApp.ChallengeApp.Services;
 
 import com.ChallengeApp.ChallengeApp.Models.Challenge;
+import com.ChallengeApp.ChallengeApp.Models.Question;
 import com.ChallengeApp.ChallengeApp.Repositories.ChallengeAppRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,5 +38,10 @@ public class ChallengeSqlServiceImpl implements ChallengeService {
     public Challenge save(Challenge challenge) {
         return challengeAppRepository.save(challenge);
     }
+
+   /* @Override
+    public List<Question> getAllQuestionsByChallengeId() {
+        return challengeAppRepository.findAllQuestionsByChallengeId();
+    }*/
 
 }
