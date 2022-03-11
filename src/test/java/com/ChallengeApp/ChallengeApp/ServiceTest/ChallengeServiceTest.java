@@ -24,6 +24,7 @@ public class ChallengeServiceTest {
 
     @Mock
     ChallengeAppRepository challengeAppRepository;
+    @Mock
     QuestionRepository questionRepository;
     @Test
     void whenSaveChallengeItShouldReturnChallenge(){
@@ -77,12 +78,12 @@ public class ChallengeServiceTest {
     @Test
     void challengeServiceCanGetAllQuestionsByChallengeId(){
         Challenge testChallenge = new Challenge(2L,"testChallenge");
-        Question question1 = new Question();
-        Question question2 = new Question();
+        Question question1 = new Question(1L, "","",testChallenge);
+        Question question2 = new Question(2L, "", "",testChallenge);
         List questionList = new ArrayList<Question>();
         questionList.add(question1);
         questionList.add(question2);
-        Mockito.when(questionRepository.findAllByChallenge(testChallenge)).thenReturn((List<Question>) questionList);
+       Mockito.when(questionRepository.findAllByChallenge(testChallenge)).thenReturn(questionList);
 
         var questionService = new QuestionSqlServiceImp(questionRepository);
 
