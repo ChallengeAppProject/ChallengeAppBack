@@ -40,4 +40,9 @@ public class QuestionSqlServiceImp implements QuestionService {
     public Question save(Question question) {
         return questionRepository.save(question);
     }
+
+    @Override
+    public List<Question> getAllByChallenge(Challenge challenge) {
+        return questionRepository.findAllByChallenge(challenge);
+    }
 }

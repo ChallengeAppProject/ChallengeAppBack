@@ -12,6 +12,7 @@ import java.util.List;
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "challenge")
 public class Challenge {
 
 @Id
@@ -20,7 +21,7 @@ public class Challenge {
     private Long id;
     private String name;
 
-   /* @OneToMany
+/*    @OneToMany (mappedBy = "challenge")
     private List<Question> questionList;*/
 
 

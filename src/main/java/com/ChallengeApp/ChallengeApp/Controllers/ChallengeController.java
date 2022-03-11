@@ -62,9 +62,11 @@ public class ChallengeController {
 
     }
 
- /*   @GetMapping("/challenges/{id}/questions")
-    public List<Question> getAllQuestions(@PathVariable Long id) {
-        return challengeService.getAllQuestionsByChallengeId();
-    }*/
+/*
+    @GetMapping("/challenges/{id}/questions")
+    public List<Question> getAllQuestions(@PathVariable Long id, Challenge challenge) {
+        return challengeService.getAllByChallenge(challenge);
+    }
+*/
 
 }

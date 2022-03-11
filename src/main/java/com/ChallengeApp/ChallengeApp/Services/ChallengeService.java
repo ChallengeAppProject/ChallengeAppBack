@@ -21,5 +21,5 @@ public interface ChallengeService {
 
     public Challenge save (Challenge challenge);
 
-    //List<Question> getAllQuestionsByChallengeId();
+
 }

@@ -16,8 +16,11 @@ import java.util.NoSuchElementException;
 @CrossOrigin
 public class QuestionController {
 
-    @Autowired
-    private QuestionService questionService;
+   private QuestionService questionService;
+
+   public QuestionController(QuestionService questionService){
+       this.questionService = questionService;
+   }
 
     @GetMapping("/questions")
     public List<Question> getAllQuestion() {

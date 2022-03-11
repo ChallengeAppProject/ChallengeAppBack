@@ -39,9 +39,6 @@ public class ChallengeSqlServiceImpl implements ChallengeService {
         return challengeAppRepository.save(challenge);
     }
 
-   /* @Override
-    public List<Question> getAllQuestionsByChallengeId() {
-        return challengeAppRepository.findAllQuestionsByChallengeId();
-    }*/
+
 
 }
