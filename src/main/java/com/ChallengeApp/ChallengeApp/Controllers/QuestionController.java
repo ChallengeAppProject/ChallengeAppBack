@@ -2,7 +2,10 @@ package com.ChallengeApp.ChallengeApp.Controllers;
 
 import com.ChallengeApp.ChallengeApp.Models.Challenge;
 import com.ChallengeApp.ChallengeApp.Models.Question;
+import com.ChallengeApp.ChallengeApp.Services.AnswerService;
 import com.ChallengeApp.ChallengeApp.Services.QuestionService;
+import com.ChallengeApp.ChallengeApp.dtos.AnswerResponseDTO;
+import com.ChallengeApp.ChallengeApp.dtos.QuestionResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,11 +18,13 @@ import java.util.NoSuchElementException;
 @RequestMapping
 @CrossOrigin
 public class QuestionController {
+    private AnswerService answerService;
 
    private QuestionService questionService;
 
-   public QuestionController(QuestionService questionService){
+   public QuestionController(QuestionService questionService, AnswerService answerService){
        this.questionService = questionService;
+       this.answerService = answerService;
    }
 
     @GetMapping("/questions")
@@ -63,4 +68,10 @@ public class QuestionController {
             return new ResponseEntity<Question>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @GetMapping("/questions/{id}/answers")
+    public List<AnswerResponseDTO> getAllAnswers(@PathVariable Long id, Question question) {
+        return answerService.getAllByQuestion(question);
+    }
+
 }
