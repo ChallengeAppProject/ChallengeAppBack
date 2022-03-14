@@ -19,7 +19,7 @@ public class ChallengeAnswer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private Long id;
-    private boolean correctAnswer;
+    private Boolean correctAnswer;
     private String textAnswer;
     @ManyToOne //(cascade=CascadeType.REMOVE) Hay algo parecido pero que fuera al revés¿?
     // es decir, cuando elimino un challenge, automáticamente se eliminen sus preguntas y respuestas asociadas?
