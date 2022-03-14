@@ -1,5 +1,6 @@
 package com.ChallengeApp.ChallengeApp.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,6 +23,7 @@ public class Question {
     private String challengeQuestion;
     @ManyToOne
     @JoinColumn(name = "challenge_id")
+    //@JsonIgnore
     private Challenge challenge;
 
 

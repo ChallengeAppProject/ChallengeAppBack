@@ -1,7 +1,10 @@
 package com.ChallengeApp.ChallengeApp.dtos;
 
 import com.ChallengeApp.ChallengeApp.Models.Challenge;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter @Setter
 public class ChallengeResponseDTO {
     public Long id;
     public String name;

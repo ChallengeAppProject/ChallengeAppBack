@@ -21,7 +21,8 @@ public class ChallengeAnswer {
     private Long id;
     private boolean correctAnswer;
     private String textAnswer;
-    @ManyToOne
+    @ManyToOne //(cascade=CascadeType.REMOVE) Hay algo parecido pero que fuera al revés¿?
+    // es decir, cuando elimino un challenge, automáticamente se eliminen sus preguntas y respuestas asociadas?
     @JoinColumn(name = "question_id")
     private Question question;
 

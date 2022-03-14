@@ -3,9 +3,11 @@ package com.ChallengeApp.ChallengeApp.Services;
 import com.ChallengeApp.ChallengeApp.Models.Challenge;
 import com.ChallengeApp.ChallengeApp.Models.Question;
 import com.ChallengeApp.ChallengeApp.Repositories.QuestionRepository;
+import com.ChallengeApp.ChallengeApp.dtos.QuestionResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.lang.Long;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -42,7 +44,17 @@ public class QuestionSqlServiceImp implements QuestionService {
     }
 
     @Override
-    public List<Question> getAllByChallenge(Challenge challenge) {
-        return questionRepository.findAllByChallenge(challenge);
+    public List<QuestionResponseDTO> getAllByChallenge(Challenge challenge) {
+
+        List<Question> questionList = questionRepository.findAllByChallenge(challenge);
+
+        List<QuestionResponseDTO> questionResponseDTOList = new ArrayList<QuestionResponseDTO>();
+
+        for(Question question :questionList){
+            QuestionResponseDTO questionResponseDTO = new QuestionResponseDTO();
+            questionResponseDTO.mapFromQuestion(question);
+            questionResponseDTOList.add(questionResponseDTO);
+        }
+        return questionResponseDTOList;
     }
 }

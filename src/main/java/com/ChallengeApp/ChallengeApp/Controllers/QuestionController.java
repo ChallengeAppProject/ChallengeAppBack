@@ -58,7 +58,7 @@ public class QuestionController {
         try {
             Question existingQuestion = questionService.get(id);
             questionService.save(question);
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<Question>(HttpStatus.OK);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<Question>(HttpStatus.NOT_FOUND);
         }

@@ -3,7 +3,10 @@ package com.ChallengeApp.ChallengeApp.Controllers;
 import com.ChallengeApp.ChallengeApp.Models.Challenge;
 import com.ChallengeApp.ChallengeApp.Models.Question;
 import com.ChallengeApp.ChallengeApp.Services.ChallengeService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.ChallengeApp.ChallengeApp.Services.QuestionService;
+import com.ChallengeApp.ChallengeApp.dtos.ChallengeRequestDTO;
+import com.ChallengeApp.ChallengeApp.dtos.ChallengeResponseDTO;
+import com.ChallengeApp.ChallengeApp.dtos.QuestionResponseDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,58 +18,61 @@ import java.util.NoSuchElementException;
 @RequestMapping
 @CrossOrigin
 public class ChallengeController {
-
-    @Autowired
+    private QuestionService questionService;
     private ChallengeService challengeService;
 
+    public ChallengeController(QuestionService questionService, ChallengeService challengeService){
+        this.questionService = questionService;
+        this.challengeService = challengeService;
+    }
+
     @GetMapping("/challenges")
-    public List<Challenge> getAllChallenges(){
+    public List<ChallengeResponseDTO> getAllChallenges(){
         return challengeService.getAllChallenges();
     }
 
 
     @GetMapping("/challenges/{id}")
-    public ResponseEntity<Challenge> get(@PathVariable Long id) {
+    public ResponseEntity<ChallengeResponseDTO> get(@PathVariable Long id) {
 
         try {
-            Challenge challenge = challengeService.get(id);
-            return new ResponseEntity<Challenge>(challenge, HttpStatus.OK);
+            ChallengeResponseDTO challengeResponseDTO = challengeService.get(id);
+            return new ResponseEntity<ChallengeResponseDTO> (challengeResponseDTO, HttpStatus.OK);
         } catch (NoSuchElementException e) {
-            return new ResponseEntity<Challenge>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<ChallengeResponseDTO>(HttpStatus.NOT_FOUND);
 
         }
 
-
     }
     @PostMapping("/challenges")
-    public String addChallenge(@RequestBody Challenge challenge) {
-        challengeService.saveChallenge(challenge);
+    public String addChallenge(@RequestBody ChallengeRequestDTO challengeRequestDTO) {
+        challengeService.createChallenge(challengeRequestDTO);
         return "New Challenge created";
     }
 
     @DeleteMapping("/challenges/{id}")
     public String delete(@PathVariable Long id){
-       challengeService.delete(id);
+        ChallengeResponseDTO challengeResponseDTO = new ChallengeResponseDTO();
+        challengeResponseDTO.setId(id);
+       challengeService.delete(challengeResponseDTO.getId());
         return "Deleted challenge "+id;
     }
 
     @PutMapping("/challenges/{id}")
-    public ResponseEntity<Challenge> update (@RequestBody Challenge challenge, @PathVariable Long id) {
+    public ResponseEntity<ChallengeResponseDTO> update (@RequestBody ChallengeRequestDTO challengeRequestDTO, @PathVariable Long id) {
         try {
-            Challenge existingChallenge = challengeService.get(id);
-            challengeService.save(challenge);
-            return new ResponseEntity<>(HttpStatus.OK);
+            ChallengeResponseDTO existingChallenge = challengeService.get(id);
+            challengeService.saveChallenge(challengeRequestDTO,existingChallenge.id);
+            return new ResponseEntity<ChallengeResponseDTO>(HttpStatus.OK);
         } catch (NoSuchElementException e) {
-            return new ResponseEntity<Challenge>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<ChallengeResponseDTO>(HttpStatus.NOT_FOUND);
         }
 
     }
 
-/*
-    @GetMapping("/challenges/{id}/questions")
-    public List<Question> getAllQuestions(@PathVariable Long id, Challenge challenge) {
-        return challengeService.getAllByChallenge(challenge);
+   @GetMapping("/challenges/{id}/questions")
+    public List<QuestionResponseDTO> getAllQuestions(@PathVariable Long id, Challenge challenge) {
+        return questionService.getAllByChallenge(challenge);
     }
-*/
 
 }
