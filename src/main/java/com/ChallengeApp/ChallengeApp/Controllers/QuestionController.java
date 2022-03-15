@@ -6,6 +6,7 @@ import com.ChallengeApp.ChallengeApp.Services.AnswerService;
 import com.ChallengeApp.ChallengeApp.Services.ChallengeService;
 import com.ChallengeApp.ChallengeApp.Services.QuestionService;
 import com.ChallengeApp.ChallengeApp.dtos.AnswerResponseDTO;
+import com.ChallengeApp.ChallengeApp.dtos.QuestionRequestDTO;
 import com.ChallengeApp.ChallengeApp.dtos.QuestionResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -39,17 +40,14 @@ public class QuestionController {
 
 
     @PostMapping("/challenges/{id}/question")
-    public String addQuestion(@RequestBody Question question, @PathVariable Long id) {
+    public String addQuestion(@RequestBody QuestionRequestDTO questionRequestDTO, @PathVariable Long id) {
        try {
-           Challenge challenge = challengeService.getById(id);
-           question.setChallenge(challenge);
-           Question question1 = questionService.saveQuestion(question);
+           questionRequestDTO.setChallengeId(id);
+           QuestionResponseDTO questionResponseDTO = questionService.createQuestion(questionRequestDTO);
            return "New question created";
        } catch (NoSuchElementException e) {
            return "Error creating question";
        }
-
-
 
     }
 

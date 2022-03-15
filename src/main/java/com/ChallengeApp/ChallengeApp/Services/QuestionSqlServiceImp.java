@@ -2,7 +2,11 @@ package com.ChallengeApp.ChallengeApp.Services;
 
 import com.ChallengeApp.ChallengeApp.Models.Challenge;
 import com.ChallengeApp.ChallengeApp.Models.Question;
+import com.ChallengeApp.ChallengeApp.Repositories.ChallengeAppRepository;
 import com.ChallengeApp.ChallengeApp.Repositories.QuestionRepository;
+import com.ChallengeApp.ChallengeApp.dtos.ChallengeRequestDTO;
+import com.ChallengeApp.ChallengeApp.dtos.ChallengeResponseDTO;
+import com.ChallengeApp.ChallengeApp.dtos.QuestionRequestDTO;
 import com.ChallengeApp.ChallengeApp.dtos.QuestionResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +16,8 @@ import java.util.List;
 
 @Service
 public class QuestionSqlServiceImp implements QuestionService {
+    @Autowired
+    ChallengeAppRepository challengeAppRepository;
 
     public QuestionSqlServiceImp(QuestionRepository questionRepository) {
         this.questionRepository = questionRepository;
@@ -32,6 +38,20 @@ public class QuestionSqlServiceImp implements QuestionService {
     @Override
     public Question saveQuestion(Question question){
         return questionRepository.save(question);
+    }
+
+    @Override
+    public QuestionResponseDTO createQuestion(QuestionRequestDTO questionRequestDTO) {
+        //Transformar el questionRequestDTO en Question
+        var question = new Question();
+        question.setChallengeQuestion(questionRequestDTO.getChallengeQuestion());
+        question.setImgUrl(questionRequestDTO.getImgUrl());
+        question.setChallenge(challengeAppRepository.findById(questionRequestDTO.getChallengeId()).get());
+        //guardarmos la question
+        questionRepository.save(question);
+        //Transformar la question en questionResponseDTO
+        var questionResponse = new QuestionResponseDTO().mapFromQuestion(question);
+        return questionResponse;
     }
 
     @Override
