@@ -46,8 +46,13 @@ public class ChallengeController {
     }
     @PostMapping("/challenges")
     public String addChallenge(@RequestBody ChallengeRequestDTO challengeRequestDTO) {
-        challengeService.createChallenge(challengeRequestDTO);
-        return "New Challenge created";
+        try{
+            ChallengeResponseDTO challengeResponseDTO = challengeService.createChallenge(challengeRequestDTO);
+            return "New Challenge created";
+        }catch (NoSuchElementException e){
+            return "Error creating challenge";
+        }
+
     }
 
     @DeleteMapping("/challenges/{id}")
