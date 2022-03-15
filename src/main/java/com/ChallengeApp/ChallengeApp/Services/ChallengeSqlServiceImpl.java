@@ -74,4 +74,9 @@ public class ChallengeSqlServiceImpl implements ChallengeService {
         challengeResponseDTO.setId(challenge.getId());
         challengeAppRepository.deleteById(challengeResponseDTO.getId());
     }
+
+    @Override
+    public Challenge getById(Long id) {
+        return challengeAppRepository.findById(id).get();
+    }
 }

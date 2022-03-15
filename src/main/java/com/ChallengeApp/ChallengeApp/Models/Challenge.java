@@ -21,8 +21,8 @@ public class Challenge {
     private Long id;
     private String name;
 
-/*    @OneToMany (mappedBy = "challenge")
-    private List<Question> questionList;*/
+   @OneToMany (mappedBy = "challenge")
+    private List<Question> questionList;
 
 
 }

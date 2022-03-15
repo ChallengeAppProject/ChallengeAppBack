@@ -3,6 +3,7 @@ package com.ChallengeApp.ChallengeApp.Controllers;
 import com.ChallengeApp.ChallengeApp.Models.Challenge;
 import com.ChallengeApp.ChallengeApp.Models.Question;
 import com.ChallengeApp.ChallengeApp.Services.AnswerService;
+import com.ChallengeApp.ChallengeApp.Services.ChallengeService;
 import com.ChallengeApp.ChallengeApp.Services.QuestionService;
 import com.ChallengeApp.ChallengeApp.dtos.AnswerResponseDTO;
 import com.ChallengeApp.ChallengeApp.dtos.QuestionResponseDTO;
@@ -17,7 +18,10 @@ import java.util.NoSuchElementException;
 @RestController
 @RequestMapping
 @CrossOrigin
+
 public class QuestionController {
+    @Autowired
+    private ChallengeService challengeService;
     private AnswerService answerService;
 
    private QuestionService questionService;
@@ -25,6 +29,7 @@ public class QuestionController {
    public QuestionController(QuestionService questionService, AnswerService answerService){
        this.questionService = questionService;
        this.answerService = answerService;
+
    }
 
     @GetMapping("/questions")
@@ -33,10 +38,19 @@ public class QuestionController {
     }
 
 
-    @PostMapping("/questions")
-    public String addQuestion(@RequestBody Question question) {
-        questionService.saveQuestion(question);
-        return "New question created";
+    @PostMapping("/challenges/{id}/question")
+    public String addQuestion(@RequestBody Question question, @PathVariable Long id) {
+       try {
+           Challenge challenge = challengeService.getById(id);
+           question.setChallenge(challenge);
+           Question question1 = questionService.saveQuestion(question);
+           return "New question created";
+       } catch (NoSuchElementException e) {
+           return "Error creating question";
+       }
+
+
+
     }
 
     @GetMapping("/questions/{id}")

@@ -20,6 +20,8 @@ public interface ChallengeService {
 
     public void delete (Long id);
 
+    public Challenge getById(Long id);
+
 
 
 
