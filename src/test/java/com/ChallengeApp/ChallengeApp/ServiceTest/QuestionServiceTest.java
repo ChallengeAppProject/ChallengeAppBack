@@ -68,13 +68,17 @@ public class QuestionServiceTest {
 
     @Test
     void questionServiceCanUpdateAQuestion(){
+        QuestionRequestDTO questionRequestDTO = new QuestionRequestDTO();
+        questionRequestDTO.setChallengeId(1L);
+        questionRequestDTO.setChallengeQuestion("2-2?");
+        questionRequestDTO.setImgUrl("img.jpg");
         Challenge challenge = new Challenge(2L,"testChallenge");
-        Question question = new Question(1L,"img.jpg","This is useful?",challenge);
+        Question question = new Question();
         Mockito.when(questionRepository.save(question)).thenReturn(question);
-        question.setChallengeQuestion("Sure is useful?");
+
         var questionSqlServiceImp = new QuestionSqlServiceImp(questionRepository);
 
-        var sut = questionSqlServiceImp.saveQuestion(question);
+        var sut = questionSqlServiceImp.saveQuestion(questionResponse);
 
         assertThat(sut.getChallengeQuestion(),equalTo("Sure is useful?"));
     }
