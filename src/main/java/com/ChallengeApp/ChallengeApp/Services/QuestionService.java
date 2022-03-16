@@ -15,11 +15,10 @@ public interface QuestionService {
 
     public String delete (Long id);
 
-    public QuestionResponseDTO save (QuestionResponseDTO questionResponseDTO);
 
      List<QuestionResponseDTO> getAllByChallenge(Challenge challenge);
 
-    QuestionResponseDTO saveQuestion(QuestionResponseDTO questionResponseDTO, Long id);
+    QuestionResponseDTO saveQuestion(QuestionRequestDTO questionRequestDTO, Long id);
 
     public QuestionResponseDTO createQuestion(QuestionRequestDTO questionRequestDTO);
 

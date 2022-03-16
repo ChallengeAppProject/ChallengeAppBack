@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter @Setter
 public class QuestionRequestDTO {
-    private Long challengeId;
-    private String imgUrl;
-    private String challengeQuestion;
+    public Long challengeId;
+    public String imgUrl;
+    public String challengeQuestion;
 }

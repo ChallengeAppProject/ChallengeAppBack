@@ -47,13 +47,13 @@ public class QuestionSqlServiceImp implements QuestionService {
     }
 
     @Override
-    public QuestionResponseDTO saveQuestion(QuestionResponseDTO questionResponseDTO, Long id){
+    public QuestionResponseDTO saveQuestion(QuestionRequestDTO questionRequestDTO, Long id){
 
-        Challenge challenge = challengeAppRepository.findById(questionResponseDTO.challengeId).get();
+        Challenge challenge = challengeAppRepository.findById(questionRequestDTO.challengeId).get();
         Question question = questionRepository.findById(id).get();
 
-        question.setImgUrl(questionResponseDTO.imgUrl);
-        question.setChallengeQuestion(questionResponseDTO.challengeQuestion);
+        question.setImgUrl(questionRequestDTO.imgUrl);
+        question.setChallengeQuestion(questionRequestDTO.challengeQuestion);
         question.setChallenge(challenge);
 
         questionRepository.save(question);
@@ -88,10 +88,6 @@ public class QuestionSqlServiceImp implements QuestionService {
 
     }
 
-    @Override
-    public Question save(Question question) {
-        return questionRepository.save(question);
-    }
 
     @Override
     public List<QuestionResponseDTO> getAllByChallenge(Challenge challenge) {

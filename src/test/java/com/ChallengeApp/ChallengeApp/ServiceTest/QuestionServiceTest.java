@@ -6,6 +6,7 @@ import com.ChallengeApp.ChallengeApp.Repositories.QuestionRepository;
 import com.ChallengeApp.ChallengeApp.Services.ChallengeSqlServiceImpl;
 import com.ChallengeApp.ChallengeApp.Services.QuestionSqlServiceImp;
 import com.ChallengeApp.ChallengeApp.dtos.ChallengeResponseDTO;
+import com.ChallengeApp.ChallengeApp.dtos.QuestionRequestDTO;
 import com.ChallengeApp.ChallengeApp.dtos.QuestionResponseDTO;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -29,13 +30,22 @@ public class QuestionServiceTest {
 
     @Test
     void questionServiceCanSaveAQuestion(){
-        Challenge challenge = new Challenge(1L, "ciencias");
-        Question question = new Question(1L,"img.jpg","This is useful?",challenge);
-        QuestionResponseDTO questionResponseDTO = new QuestionResponseDTO().mapFromQuestion(question);
-        var questionSqlServiceImp = new QuestionSqlServiceImp(questionRepository);
-        Mockito.when(questionRepository.save(question)).thenReturn(questionResponseDTO);
+        QuestionRequestDTO questionRequestDTO = new QuestionRequestDTO();
+        questionRequestDTO.setChallengeId(1L);
+        questionRequestDTO.setChallengeQuestion("2+2?");
+        questionRequestDTO.setImgUrl("omg.jpg");
 
-        var sut = questionSqlServiceImp.saveQuestion(questionResponseDTO);
+        Challenge challenge = new Challenge(1L, "mates");
+        Question question = new Question();
+        question.setChallenge(challenge);
+
+        QuestionResponseDTO questionResponseDTO = new QuestionResponseDTO().mapFromQuestion(question);
+
+        Mockito.when(questionRepository.save(question)).thenReturn(question);
+
+        QuestionSqlServiceImp questionSqlServiceImp = new QuestionSqlServiceImp(questionRepository);
+
+        var sut = questionSqlServiceImp.createQuestion(questionRequestDTO);
 
         assertThat(question, equalTo(sut));
         assertThat(question.getChallengeQuestion(), equalTo("This is useful?"));
@@ -64,7 +74,7 @@ public class QuestionServiceTest {
         question.setChallengeQuestion("Sure is useful?");
         var questionSqlServiceImp = new QuestionSqlServiceImp(questionRepository);
 
-        var sut = questionSqlServiceImp.save(question);
+        var sut = questionSqlServiceImp.saveQuestion(question);
 
         assertThat(sut.getChallengeQuestion(),equalTo("Sure is useful?"));
     }

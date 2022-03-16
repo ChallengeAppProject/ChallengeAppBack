@@ -71,13 +71,13 @@ public class QuestionController {
     }
 
     @PutMapping("/questions/{id}")
-    public ResponseEntity<Question> update (@RequestBody Question question, @PathVariable Long id) {
+    public ResponseEntity<QuestionResponseDTO> update (@RequestBody QuestionRequestDTO questionRequestDTO, @PathVariable Long id) {
         try {
-            Question existingQuestion = questionService.get(id);
-            questionService.save(question);
-            return new ResponseEntity<Question>(HttpStatus.OK);
+            QuestionResponseDTO existingQuestion = questionService.get(id);
+            questionService.saveQuestion(questionRequestDTO, existingQuestion.id);
+            return new ResponseEntity<QuestionResponseDTO>(HttpStatus.OK);
         } catch (NoSuchElementException e) {
-            return new ResponseEntity<Question>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<QuestionResponseDTO>(HttpStatus.NOT_FOUND);
         }
     }
 
