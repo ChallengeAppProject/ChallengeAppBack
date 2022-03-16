@@ -1,7 +1,5 @@
 package com.ChallengeApp.ChallengeApp.Models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,9 +21,9 @@ public class Challenge {
     private Long id;
     private String name;
 
-   /*@OneToMany (mappedBy = "challenge")
-   @JsonIgnoreProperties
+/*   @OneToMany (mappedBy = "challenge")
     private List<Question> questionList;*/
+
 
 
 }
