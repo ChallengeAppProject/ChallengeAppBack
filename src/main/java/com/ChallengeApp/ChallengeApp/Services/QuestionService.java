@@ -13,14 +13,13 @@ public interface QuestionService {
 
     List<QuestionResponseDTO> getAllQuestion();
 
-    public Question saveQuestion(Question question);
-
-
-    public void delete (Long id);
+    public String delete (Long id);
 
     public QuestionResponseDTO save (QuestionResponseDTO questionResponseDTO);
 
      List<QuestionResponseDTO> getAllByChallenge(Challenge challenge);
+
+    QuestionResponseDTO saveQuestion(QuestionResponseDTO questionResponseDTO, Long id);
 
     public QuestionResponseDTO createQuestion(QuestionRequestDTO questionRequestDTO);
 

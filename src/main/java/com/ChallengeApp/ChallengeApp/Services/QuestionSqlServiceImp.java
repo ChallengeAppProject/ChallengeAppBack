@@ -4,8 +4,6 @@ import com.ChallengeApp.ChallengeApp.Models.Challenge;
 import com.ChallengeApp.ChallengeApp.Models.Question;
 import com.ChallengeApp.ChallengeApp.Repositories.ChallengeAppRepository;
 import com.ChallengeApp.ChallengeApp.Repositories.QuestionRepository;
-import com.ChallengeApp.ChallengeApp.dtos.ChallengeRequestDTO;
-import com.ChallengeApp.ChallengeApp.dtos.ChallengeResponseDTO;
 import com.ChallengeApp.ChallengeApp.dtos.QuestionRequestDTO;
 import com.ChallengeApp.ChallengeApp.dtos.QuestionResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,16 +26,41 @@ public class QuestionSqlServiceImp implements QuestionService {
 
 
     @Override
-    public Question get(Long id)  {return questionRepository.findById(id).get();}
+    public QuestionResponseDTO get(Long id)  {
+       Question question  = questionRepository.findById(id).get();
+        QuestionResponseDTO questionResponseDTO = new QuestionResponseDTO();
+        var questionResponse = new QuestionResponseDTO().mapFromQuestion(question);
+        return questionResponse; }
 
     @Override
-    public List<Question> getAllQuestion(){
-        return questionRepository.findAll();
+    public List<QuestionResponseDTO> getAllQuestion(){
+        List<Question> questions = questionRepository.findAll();
+        List<QuestionResponseDTO> questionsDTO = new ArrayList<QuestionResponseDTO>();
+
+        for (Question question : questions) {
+            QuestionResponseDTO questionResponseDTO = new QuestionResponseDTO();
+            questionResponseDTO.mapFromQuestion(question);
+            questionsDTO.add(questionResponseDTO);
+        }
+
+        return questionsDTO;
     }
 
     @Override
-    public Question saveQuestion(Question question){
-        return questionRepository.save(question);
+    public QuestionResponseDTO saveQuestion(QuestionResponseDTO questionResponseDTO, Long id){
+
+        Challenge challenge = challengeAppRepository.findById(questionResponseDTO.challengeId).get();
+        Question question = questionRepository.findById(id).get();
+
+        question.setImgUrl(questionResponseDTO.imgUrl);
+        question.setChallengeQuestion(questionResponseDTO.challengeQuestion);
+        question.setChallenge(challenge);
+
+        questionRepository.save(question);
+
+        var questionResponse = new QuestionResponseDTO().mapFromQuestion(question);
+
+        return questionResponse;
     }
 
     @Override
@@ -55,7 +78,14 @@ public class QuestionSqlServiceImp implements QuestionService {
     }
 
     @Override
-    public void delete (Long id){questionRepository.deleteById(id);
+    public String delete (Long id){
+        Question question = questionRepository.findById(id).get();
+        QuestionResponseDTO questionResponseDTO = new QuestionResponseDTO();
+        questionResponseDTO.setId(question.getId());
+        questionRepository.deleteById(questionResponseDTO.getId());
+
+        return "Question deleted succesfully";
+
     }
 
     @Override

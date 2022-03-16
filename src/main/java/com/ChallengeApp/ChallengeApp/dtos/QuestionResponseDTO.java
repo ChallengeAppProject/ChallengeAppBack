@@ -6,10 +6,10 @@ import lombok.Setter;
 
 @Getter @Setter
 public class QuestionResponseDTO {
-    private Long id;
-    private Long challengeId;
-    private String imgUrl;
-    private String challengeQuestion;
+    public Long id;
+    public Long challengeId;
+    public String imgUrl;
+    public String challengeQuestion;
 
     public QuestionResponseDTO mapFromQuestion(Question question){
         this.id = question.getId();

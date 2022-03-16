@@ -33,35 +33,36 @@ public class QuestionController {
    }
 
     @GetMapping("/questions")
-    public List<Question> getAllQuestion() {
+    public List<QuestionResponseDTO> getAllQuestion() {
         return questionService.getAllQuestion();
     }
 
-
-    @PostMapping("/challenges/{id}/question")
-    public String addQuestion(@RequestBody QuestionRequestDTO questionRequestDTO, @PathVariable Long id) {
-       try {
-           questionRequestDTO.setChallengeId(id);
-           QuestionResponseDTO questionResponseDTO = questionService.createQuestion(questionRequestDTO);
-           return "New question created";
-       } catch (NoSuchElementException e) {
-           return "Error creating question";
-       }
-
-    }
-
     @GetMapping("/questions/{id}")
-    public ResponseEntity<Question> get(@PathVariable Long id) {
+    public ResponseEntity<QuestionResponseDTO> get(@PathVariable Long id) {
 
         try {
-            Question question = questionService.get(id);
-            return new ResponseEntity<Question>(question, HttpStatus.OK);
+            QuestionResponseDTO questionResponseDTO = questionService.get(id);
+            return new ResponseEntity<QuestionResponseDTO>(questionResponseDTO, HttpStatus.OK);
         } catch (NoSuchElementException e) {
-            return new ResponseEntity<Question>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<QuestionResponseDTO>(HttpStatus.NOT_FOUND);
 
         }
 
     }
+
+
+    @PostMapping("/challenges/{id}/question")
+    public ResponseEntity<QuestionResponseDTO> addQuestion(@RequestBody QuestionRequestDTO questionRequestDTO, @PathVariable Long id) {
+       try {
+           questionRequestDTO.setChallengeId(id);
+           QuestionResponseDTO questionResponseDTO = questionService.createQuestion(questionRequestDTO);
+           return new ResponseEntity<QuestionResponseDTO>(questionResponseDTO, HttpStatus.OK);
+       } catch (NoSuchElementException e) {
+           return new ResponseEntity<QuestionResponseDTO>(HttpStatus.NOT_FOUND);
+       }
+
+    }
+
 
     @DeleteMapping("/questions/{id}")
     public String delete(@PathVariable Long id){
