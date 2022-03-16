@@ -28,25 +28,25 @@ public class QuestionController {
    }
 
     @GetMapping("/questions")
-    public List<Question> getAllQuestion() {
+    public List<QuestionResponseDTO> getAllQuestion() {
         return questionService.getAllQuestion();
     }
 
 
     @PostMapping("/questions")
-    public String addQuestion(@RequestBody Question question) {
-        questionService.saveQuestion(question);
+    public String addQuestion(@RequestBody QuestionResponseDTO questionResponseDTO) {
+        questionService.saveQuestion(questionRequestDTO);
         return "New question created";
     }
 
     @GetMapping("/questions/{id}")
-    public ResponseEntity<Question> get(@PathVariable Long id) {
+    public ResponseEntity<QuestionResponseDTO> get(@PathVariable Long id) {
 
         try {
-            Question question = questionService.get(id);
-            return new ResponseEntity<Question>(question, HttpStatus.OK);
+            QuestionResponseDTO questionResponseDTO = questionService.get(id);
+            return new ResponseEntity<QuestionResponseDTO>(questionResponseDTO, HttpStatus.OK);
         } catch (NoSuchElementException e) {
-            return new ResponseEntity<Question>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<QuestionResponseDTO>(HttpStatus.NOT_FOUND);
 
         }
 
@@ -54,15 +54,17 @@ public class QuestionController {
 
     @DeleteMapping("/questions/{id}")
     public String delete(@PathVariable Long id){
-        questionService.delete(id);
+        QuestionResponseDTO questionResponseDTO = new QuestionResponseDTO();
+        questionResponseDTO.setId(id);
+        questionService.delete(questionResponseDTO.getId());
         return "Deleted question "+id;
     }
 
     @PutMapping("/questions/{id}")
-    public ResponseEntity<Question> update (@RequestBody Question question, @PathVariable Long id) {
+    public ResponseEntity<Question> update (@RequestBody QuestionResponseDTO questionResponseDTO, @PathVariable Long id) {
         try {
-            Question existingQuestion = questionService.get(id);
-            questionService.save(question);
+            QuestionResponseDTO existingQuestion = questionService.get(id);
+            questionService.save(questionResponseDTO);
             return new ResponseEntity<Question>(HttpStatus.OK);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<Question>(HttpStatus.NOT_FOUND);

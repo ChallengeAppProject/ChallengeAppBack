@@ -22,20 +22,38 @@ public class QuestionSqlServiceImp implements QuestionService {
 
 
     @Override
-    public Question get(Long id)  {return questionRepository.findById(id).get();}
+    public QuestionResponseDTO get(Long id)  {
+        Question question = questionRepository.findById(id).get();
+        QuestionResponseDTO questionResponseDTO = new QuestionResponseDTO();
+        var questionResponse  = new QuestionResponseDTO().mapFromQuestion(question);
+        return questionResponse;}
 
     @Override
-    public List<Question> getAllQuestion(){
-        return questionRepository.findAll();
+    public List<QuestionResponseDTO> getAllQuestion(){
+        List<Question> questions = questionRepository.findAll();
+        List<QuestionResponseDTO> questionsDTO = new ArrayList<QuestionResponseDTO>();
+
+        for (Question question : questions) {
+            QuestionResponseDTO questionResponseDTO = new QuestionResponseDTO();
+            questionResponseDTO.setChallengeQuestion(question.getChallengeQuestion());
+            questionsDTO.add(questionResponseDTO);
+
+        }
     }
 
     @Override
     public Question saveQuestion(Question question){
         return questionRepository.save(question);
     }
+    //Faltaría hacer el QuestionRequestDTO que no tengo claro
+    //POr qué hay dos save para la question? (linea 56)
 
     @Override
-    public void delete (Long id){questionRepository.deleteById(id);
+    public void delete (Long id){
+        Question question = questionRepository.findById(id).get();
+        QuestionResponseDTO questionResponseDTO = new QuestionResponseDTO();
+        questionResponseDTO.setId(question.getId());
+        questionRepository.deleteById(questionResponseDTO.getId());
     }
 
     @Override
