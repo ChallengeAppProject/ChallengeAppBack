@@ -45,10 +45,12 @@ public class ChallengeController {
 
     }
     @PostMapping("/challenges")
-    public String addChallenge(@RequestBody ChallengeRequestDTO challengeRequestDTO) {
-        challengeService.createChallenge(challengeRequestDTO);
-        return "New Challenge created";
-    }
+    public ResponseEntity<ChallengeResponseDTO> addChallenge(@RequestBody ChallengeRequestDTO challengeRequestDTO) {
+       try{
+           ChallengeResponseDTO challengeResponseDTO =  challengeService.createChallenge(challengeRequestDTO);
+        return new ResponseEntity<ChallengeResponseDTO> (challengeResponseDTO, HttpStatus.OK);
+       } catch (NoSuchElementException e){
+           return new ResponseEntity<ChallengeResponseDTO>(HttpStatus.NOT_FOUND);}}
 
     @DeleteMapping("/challenges/{id}")
     public String delete(@PathVariable Long id){

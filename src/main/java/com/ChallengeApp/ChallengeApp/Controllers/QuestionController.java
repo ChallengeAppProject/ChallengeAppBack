@@ -3,8 +3,10 @@ package com.ChallengeApp.ChallengeApp.Controllers;
 import com.ChallengeApp.ChallengeApp.Models.Challenge;
 import com.ChallengeApp.ChallengeApp.Models.Question;
 import com.ChallengeApp.ChallengeApp.Services.AnswerService;
+import com.ChallengeApp.ChallengeApp.Services.ChallengeService;
 import com.ChallengeApp.ChallengeApp.Services.QuestionService;
 import com.ChallengeApp.ChallengeApp.dtos.AnswerResponseDTO;
+import com.ChallengeApp.ChallengeApp.dtos.QuestionRequestDTO;
 import com.ChallengeApp.ChallengeApp.dtos.QuestionResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,7 +19,10 @@ import java.util.NoSuchElementException;
 @RestController
 @RequestMapping
 @CrossOrigin
+
 public class QuestionController {
+    @Autowired
+    private ChallengeService challengeService;
     private AnswerService answerService;
 
    private QuestionService questionService;
@@ -28,25 +33,31 @@ public class QuestionController {
    }
 
     @GetMapping("/questions")
-    public List<QuestionResponseDTO> getAllQuestion() {
+    public List<Question> getAllQuestion() {
         return questionService.getAllQuestion();
     }
 
 
-    @PostMapping("/questions")
-    public String addQuestion(@RequestBody QuestionResponseDTO questionResponseDTO) {
-        questionService.saveQuestion(questionRequestDTO);
-        return "New question created";
+    @PostMapping("/challenges/{id}/question")
+    public String addQuestion(@RequestBody QuestionRequestDTO questionRequestDTO, @PathVariable Long id) {
+       try {
+           questionRequestDTO.setChallengeId(id);
+           QuestionResponseDTO questionResponseDTO = questionService.createQuestion(questionRequestDTO);
+           return "New question created";
+       } catch (NoSuchElementException e) {
+           return "Error creating question";
+       }
+
     }
 
     @GetMapping("/questions/{id}")
-    public ResponseEntity<QuestionResponseDTO> get(@PathVariable Long id) {
+    public ResponseEntity<Question> get(@PathVariable Long id) {
 
         try {
-            QuestionResponseDTO questionResponseDTO = questionService.get(id);
-            return new ResponseEntity<QuestionResponseDTO>(questionResponseDTO, HttpStatus.OK);
+            Question question = questionService.get(id);
+            return new ResponseEntity<Question>(question, HttpStatus.OK);
         } catch (NoSuchElementException e) {
-            return new ResponseEntity<QuestionResponseDTO>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<Question>(HttpStatus.NOT_FOUND);
 
         }
 
@@ -54,17 +65,15 @@ public class QuestionController {
 
     @DeleteMapping("/questions/{id}")
     public String delete(@PathVariable Long id){
-        QuestionResponseDTO questionResponseDTO = new QuestionResponseDTO();
-        questionResponseDTO.setId(id);
-        questionService.delete(questionResponseDTO.getId());
+        questionService.delete(id);
         return "Deleted question "+id;
     }
 
     @PutMapping("/questions/{id}")
-    public ResponseEntity<Question> update (@RequestBody QuestionResponseDTO questionResponseDTO, @PathVariable Long id) {
+    public ResponseEntity<Question> update (@RequestBody Question question, @PathVariable Long id) {
         try {
-            QuestionResponseDTO existingQuestion = questionService.get(id);
-            questionService.save(questionResponseDTO);
+            Question existingQuestion = questionService.get(id);
+            questionService.save(question);
             return new ResponseEntity<Question>(HttpStatus.OK);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<Question>(HttpStatus.NOT_FOUND);

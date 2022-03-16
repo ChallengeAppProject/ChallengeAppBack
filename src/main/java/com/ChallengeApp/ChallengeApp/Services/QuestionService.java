@@ -2,6 +2,7 @@ package com.ChallengeApp.ChallengeApp.Services;
 
 import com.ChallengeApp.ChallengeApp.Models.Challenge;
 import com.ChallengeApp.ChallengeApp.Models.Question;
+import com.ChallengeApp.ChallengeApp.dtos.QuestionRequestDTO;
 import com.ChallengeApp.ChallengeApp.dtos.QuestionResponseDTO;
 
 import java.util.List;
@@ -20,5 +21,7 @@ public interface QuestionService {
     public QuestionResponseDTO save (QuestionResponseDTO questionResponseDTO);
 
      List<QuestionResponseDTO> getAllByChallenge(Challenge challenge);
+
+    public QuestionResponseDTO createQuestion(QuestionRequestDTO questionRequestDTO);
 
 }
