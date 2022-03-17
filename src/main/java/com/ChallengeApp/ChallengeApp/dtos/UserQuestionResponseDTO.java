@@ -11,14 +11,16 @@ public class UserQuestionResponseDTO {
     public Long questionId;
     public Long challengeAnswerId;
     public Long challengeId;
+    public Boolean isCorrect;
 
 
     public UserQuestionResponseDTO mapFromUserQuestion(UserQuestion userQuestion){
 
-        this.userId = userQuestion.getId();
+        this.userId = userQuestion.getUser().getId();
         this.questionId = userQuestion.getQuestion().getId();
         this.challengeAnswerId = userQuestion.getChallengeAnswer().getId();
         this.challengeId = userQuestion.challenge().getId();
+        this.isCorrect = userQuestion.isUserRight();
 
         return this;
     }
