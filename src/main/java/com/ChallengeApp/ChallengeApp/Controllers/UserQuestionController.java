@@ -11,6 +11,7 @@ import com.ChallengeApp.ChallengeApp.Services.ChallengeService;
 import com.ChallengeApp.ChallengeApp.Services.QuestionService;
 import com.ChallengeApp.ChallengeApp.Services.UserQuestionService;
 import com.ChallengeApp.ChallengeApp.Services.UserQuestionSqlServiceImpl;
+import com.ChallengeApp.ChallengeApp.dtos.QuestionListResponseDTO;
 import com.ChallengeApp.ChallengeApp.dtos.UserQuestionResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,7 +44,7 @@ public class UserQuestionController {
 
 
     @GetMapping("/userQuestion/challenge/{id}")
-    public List<UserQuestionResponseDTO> getAllfindAllByUserAndQuestion_Challenge( @PathVariable Long id) {
+    public QuestionListResponseDTO getAllfindAllByUserAndQuestion_Challenge(@PathVariable Long id) {
         User user= getAuthUser();
         Challenge challenge = challengeService.getById(id);
         return userQuestionService.getAllfindAllByUserAndQuestion_Challenge(user, challenge );

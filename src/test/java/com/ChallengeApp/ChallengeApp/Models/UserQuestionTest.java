@@ -1,10 +1,17 @@
 package com.ChallengeApp.ChallengeApp.Models;
 
+import com.ChallengeApp.ChallengeApp.Services.UserQuestionService;
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.*;
 
 class UserQuestionTest {
+
 
     @Test
     void ifAnswerisRight() {
@@ -20,5 +27,4 @@ class UserQuestionTest {
 
        assertTrue(sut);
     }
-
 }

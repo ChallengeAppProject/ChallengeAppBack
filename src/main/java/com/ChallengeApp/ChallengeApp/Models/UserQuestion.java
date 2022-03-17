@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -33,13 +34,19 @@ public class UserQuestion {
         return challengeAnswer.isCorrect();
     }
 
+
     @JsonProperty
     public Challenge challenge() {return this.question.getChallenge();}
 
+    public int correctAnswersCounter(List <UserQuestion> userQuestionList){
+        var counter = 0;
+        for(UserQuestion userQuestion: userQuestionList){
+            if(userQuestion.isUserRight()){
+                counter+=1;
+            }
+        }
+        return counter;
 
-
-
-
-
+    }
 
 }

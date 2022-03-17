@@ -9,13 +9,16 @@ import lombok.Setter;
 public class UserQuestionResponseDTO {
 
     public User user;
+    public int correctAnswers;
     public Challenge challenge;
     public Question question;
     public ChallengeAnswer challengeAnswer;
 
+
     public UserQuestionResponseDTO mapFromUserQuestion(UserQuestion userQuestion){
 
         this.user = new User(userQuestion.getUser().getId(), userQuestion.getUser().getUserName());
+      //  this.correctAnswers = userQuestion.correctAnswersCounter();
         this.challenge = new Challenge(userQuestion.challenge().getId(),userQuestion.challenge().getName());
         this.question = new Question(userQuestion.getQuestion().getId(), userQuestion.getQuestion().getChallengeQuestion());
         this.challengeAnswer = new ChallengeAnswer(userQuestion.getChallengeAnswer().getId(), userQuestion.getChallengeAnswer()
