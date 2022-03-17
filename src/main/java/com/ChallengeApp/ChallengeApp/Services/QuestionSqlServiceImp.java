@@ -14,11 +14,11 @@ import java.util.List;
 
 @Service
 public class QuestionSqlServiceImp implements QuestionService {
-    @Autowired
-    ChallengeAppRepository challengeAppRepository;
 
-    public QuestionSqlServiceImp(QuestionRepository questionRepository) {
+    private ChallengeAppRepository challengeAppRepository;
+    public QuestionSqlServiceImp(QuestionRepository questionRepository, ChallengeAppRepository challengeAppRepository) {
         this.questionRepository = questionRepository;
+        this.challengeAppRepository = challengeAppRepository;
     }
 
     private QuestionRepository questionRepository;
@@ -103,4 +103,5 @@ public class QuestionSqlServiceImp implements QuestionService {
         }
         return questionResponseDTOList;
     }
+
 }

@@ -33,9 +33,9 @@ public class UserQuestionController {
 
 
 
-    @GetMapping("/userQuestion")
+   /* @GetMapping("/userQuestion")
     public List<UserQuestionResponseDTO> getAllfindAllByUserAndQuestion_Challenge() {
         return userQuestionService.getAllfindAllByUserAndQuestion_Challenge();
-    }
+    }*/
 }
     }

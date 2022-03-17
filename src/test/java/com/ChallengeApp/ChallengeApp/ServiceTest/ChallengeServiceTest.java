@@ -1,11 +1,9 @@
 package com.ChallengeApp.ChallengeApp.ServiceTest;
 
 import com.ChallengeApp.ChallengeApp.Models.Challenge;
-import com.ChallengeApp.ChallengeApp.Models.Question;
 import com.ChallengeApp.ChallengeApp.Repositories.ChallengeAppRepository;
 import com.ChallengeApp.ChallengeApp.Repositories.QuestionRepository;
 import com.ChallengeApp.ChallengeApp.Services.ChallengeSqlServiceImpl;
-import com.ChallengeApp.ChallengeApp.Services.QuestionSqlServiceImp;
 import com.ChallengeApp.ChallengeApp.dtos.ChallengeRequestDTO;
 import com.ChallengeApp.ChallengeApp.dtos.ChallengeResponseDTO;
 import org.junit.jupiter.api.Test;
@@ -19,16 +17,14 @@ import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.verify;
 
 @SpringBootTest
 public class ChallengeServiceTest {
 
     @Mock
     ChallengeAppRepository challengeAppRepository;
-    @Mock
-    QuestionRepository questionRepository;
     @Test
     void whenSaveChallengeItShouldReturnChallenge(){
         Challenge challenge = new Challenge(1L,"mockChallenge");
@@ -186,7 +182,7 @@ public class ChallengeServiceTest {
         // nos devuelva el challenge
         Mockito.when(challengeAppRepository.findById(1L)).thenReturn(Optional.of(challenge));
         //mediante Mockito pedimos que cuando se use la función .save del repositorio mockeado
-        // nos devuelva el challenge
+        // nos guarde el challenge
         Mockito.when(challengeAppRepository.save(challenge)).thenReturn(challenge);
         //Creamos una implementación del servicio
         ChallengeSqlServiceImpl challengeSqlService = new ChallengeSqlServiceImpl(challengeAppRepository);
