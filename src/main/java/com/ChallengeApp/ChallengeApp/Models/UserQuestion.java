@@ -34,9 +34,7 @@ public class UserQuestion {
     }
 
     @JsonProperty
-    public Challenge challenge() {
-        return this.question.getChallenge();
-    }
+    public Challenge challenge() {return this.question.getChallenge();}
 
 
 
