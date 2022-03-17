@@ -7,22 +7,19 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UserQuestionResponseDTO {
-    public Long userId;
-    public Long questionId;
-    public Long challengeAnswerId;
-    public Long challengeId;
-    public Boolean isCorrect;
+
     public User user;
     public Challenge challenge;
+    public Question question;
+    public ChallengeAnswer challengeAnswer;
 
     public UserQuestionResponseDTO mapFromUserQuestion(UserQuestion userQuestion){
 
-        this.userId = userQuestion.getUser().getId();
-        this.questionId = userQuestion.getQuestion().getId();
-        this.challengeAnswerId = userQuestion.getChallengeAnswer().getId();
-        this.isCorrect = userQuestion.isUserRight();
         this.user = new User(userQuestion.getUser().getId(), userQuestion.getUser().getUserName());
         this.challenge = new Challenge(userQuestion.challenge().getId(),userQuestion.challenge().getName());
+        this.question = new Question(userQuestion.getQuestion().getId(), userQuestion.getQuestion().getChallengeQuestion());
+        this.challengeAnswer = new ChallengeAnswer(userQuestion.getChallengeAnswer().getId(), userQuestion.getChallengeAnswer()
+                .getTextAnswer(), userQuestion.getChallengeAnswer().isCorrect());
 
         return this;
     }
@@ -45,6 +42,30 @@ public class UserQuestionResponseDTO {
         public Challenge(Long id, String name) {
             this.id = id;
             this.challengeName = name;
+        }
+    }
+
+    class Question {
+        public Long id;
+        public String challenQuestion;
+
+
+        public Question(Long id, String challengeQuestion) {
+            this.id = id;
+            this.challenQuestion = challengeQuestion;
+
+        }
+    }
+
+    class ChallengeAnswer {
+        public Long id;
+        public String answer;
+        public Boolean isCorrect;
+
+        public ChallengeAnswer(Long id, String textAnswer, boolean correct) {
+            this.id = id;
+            this.answer = textAnswer;
+            this.isCorrect = correct;
         }
     }
 
