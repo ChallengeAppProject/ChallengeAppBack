@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +55,7 @@ public class QuestionServiceTest {
     }
 
     @Test
-    void questionServiceCanReturnAQuestionById(){
+    void questionServiceCanReturnAQuestionDTOById(){
         Challenge challenge = new Challenge(1L, "ciencias");
         Question question = new Question(1L,"img.jpg","This is useful?",challenge);
         Mockito.when(questionRepository.findById(1L)).thenReturn(Optional.of(question));
@@ -63,7 +63,7 @@ public class QuestionServiceTest {
 
         var sut = questionSqlServiceImp.get(1L);
 
-        assertThat(question, equalTo(sut));
+        assertThat(question.getChallengeQuestion(), equalTo(sut.getChallengeQuestion()));
         assertThat(question.getChallengeQuestion(), equalTo("This is useful?"));
         verify(questionRepository).findById(1L);
     }
@@ -106,8 +106,9 @@ public class QuestionServiceTest {
         //WHEN -ACT
         // Utilizamos la función saveQuestion del servicio (la que usa la .findById y .save del repo);
         var sut = questionSqlServiceImp.saveQuestion(questionRequestDTO, questionResponse.getId());
-        verify(challengeAppRepository).findById(challenge1.getId());
+
         //THEN - ASSERT
+        verify(challengeAppRepository).findById(challenge1.getId());
         assertEquals("", sut.getChallengeQuestion());
     }
 
@@ -115,11 +116,14 @@ public class QuestionServiceTest {
     void questionServiceCanDeleteAQuestion(){
         Challenge challenge = new Challenge(2L,"testChallenge");
         Question question = new Question(1L,"img.jpg","This is useful?",challenge);
+        QuestionResponseDTO questionResponseDTO = new QuestionResponseDTO();
+        questionResponseDTO.setId(question.getId());
         var questionSqlServiceImp = new QuestionSqlServiceImp(questionRepository, challengeAppRepository);
 
-         questionSqlServiceImp.delete(1L);
+        Mockito.when(questionRepository.findById(questionResponseDTO.getId())).thenReturn(Optional.of(question));
+         questionSqlServiceImp.delete(questionResponseDTO.getId());
 
-         verify(questionRepository).deleteById(1L);
+         verify(questionRepository).deleteById(questionResponseDTO.getId());
     }
 
     @Test

@@ -15,15 +15,12 @@ import java.util.List;
 @Service
 public class QuestionSqlServiceImp implements QuestionService {
 
+    private QuestionRepository questionRepository;
     private ChallengeAppRepository challengeAppRepository;
     public QuestionSqlServiceImp(QuestionRepository questionRepository, ChallengeAppRepository challengeAppRepository) {
         this.questionRepository = questionRepository;
         this.challengeAppRepository = challengeAppRepository;
     }
-
-    private QuestionRepository questionRepository;
-
-
 
     @Override
     public QuestionResponseDTO get(Long id)  {
@@ -85,9 +82,7 @@ public class QuestionSqlServiceImp implements QuestionService {
         questionRepository.deleteById(questionResponseDTO.getId());
 
         return "Question deleted succesfully";
-
     }
-
 
     @Override
     public List<QuestionResponseDTO> getAllByChallenge(Challenge challenge) {
