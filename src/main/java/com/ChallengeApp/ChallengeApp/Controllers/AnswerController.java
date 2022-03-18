@@ -1,9 +1,9 @@
 package com.ChallengeApp.ChallengeApp.Controllers;
 
-import com.ChallengeApp.ChallengeApp.Models.Challenge;
 import com.ChallengeApp.ChallengeApp.Models.ChallengeAnswer;
-import com.ChallengeApp.ChallengeApp.Models.Question;
 import com.ChallengeApp.ChallengeApp.Services.AnswerService;
+import com.ChallengeApp.ChallengeApp.dtos.AnswerRequestDTO;
+import com.ChallengeApp.ChallengeApp.dtos.AnswerResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,18 +25,18 @@ public class AnswerController {
         return answerService.getAllAnswer();
     }
     @PostMapping("/answers")
-   public String addAnswer(@RequestBody ChallengeAnswer challengeAnswer) {
-    answerService.saveAnswer(challengeAnswer);
+   public String addAnswer(@RequestBody AnswerRequestDTO answerRequestDTO) {
+    answerService.saveAnswer(answerRequestDTO);
     return "New answer created";
     }
     @GetMapping("/answers/{id}")
-    public ResponseEntity<ChallengeAnswer> get(@PathVariable Long id) {
+    public ResponseEntity<AnswerResponseDTO> get(@PathVariable Long id) {
 
         try {
-            ChallengeAnswer challengeAnswer = answerService.get(id);
-            return new ResponseEntity<ChallengeAnswer>(challengeAnswer, HttpStatus.OK);
+            AnswerResponseDTO answer = answerService.getAnswerById(id);
+            return new ResponseEntity<AnswerResponseDTO>(answer, HttpStatus.OK);
         } catch (NoSuchElementException e) {
-            return new ResponseEntity<ChallengeAnswer>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<AnswerResponseDTO>(HttpStatus.NOT_FOUND);
 
         }
 
@@ -49,13 +49,13 @@ public class AnswerController {
     }
 
     @PutMapping("/answers/{id}")
-    public ResponseEntity<ChallengeAnswer> update (@RequestBody ChallengeAnswer challengeAnswer, @PathVariable Long id) {
+    public ResponseEntity<AnswerResponseDTO> update (@RequestBody AnswerRequestDTO answerRequestDTO, @PathVariable Long id) {
         try {
-            ChallengeAnswer existingChallengeAnswer = answerService.get(id);
-            answerService.save(challengeAnswer);
-            return new ResponseEntity<>(HttpStatus.OK);
+            AnswerResponseDTO answer = answerService.getAnswerById(id);
+            answerService.saveAnswer(answerRequestDTO);
+            return new ResponseEntity<AnswerResponseDTO>(HttpStatus.OK);
         } catch (NoSuchElementException e) {
-            return new ResponseEntity<ChallengeAnswer>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<AnswerResponseDTO>(HttpStatus.NOT_FOUND);
         }
     }
 

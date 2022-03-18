@@ -1,13 +1,11 @@
 package com.ChallengeApp.ChallengeApp.Services;
 
-import com.ChallengeApp.ChallengeApp.Models.Challenge;
 import com.ChallengeApp.ChallengeApp.Models.ChallengeAnswer;
 import com.ChallengeApp.ChallengeApp.Models.Question;
 import com.ChallengeApp.ChallengeApp.Repositories.AnswerRepository;
 import com.ChallengeApp.ChallengeApp.Repositories.QuestionRepository;
+import com.ChallengeApp.ChallengeApp.dtos.AnswerRequestDTO;
 import com.ChallengeApp.ChallengeApp.dtos.AnswerResponseDTO;
-import com.ChallengeApp.ChallengeApp.dtos.QuestionResponseDTO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,11 +14,13 @@ import java.util.List;
 @Service
 
 public class AnswerSqlServiceImpl implements AnswerService{
-    @Autowired
-    private AnswerRepository answerRepository;
 
-    public AnswerSqlServiceImpl(AnswerRepository answerRepository) {
+    private AnswerRepository answerRepository;
+    private QuestionRepository questionRepository;
+
+    public AnswerSqlServiceImpl(AnswerRepository answerRepository, QuestionRepository questionRepository) {
         this.answerRepository = answerRepository;
+        this.questionRepository = questionRepository;
     }
 
     @Override
@@ -29,19 +29,41 @@ public class AnswerSqlServiceImpl implements AnswerService{
     }
 
     @Override
-    public ChallengeAnswer saveAnswer(ChallengeAnswer challengeAnswer){
-        return answerRepository.save(challengeAnswer);
+    public AnswerResponseDTO saveAnswer(AnswerRequestDTO answerRequestDTO){
+        //Transformar el answerRequestDTO en ChallengeAnswer
+        var answer = new ChallengeAnswer();
+        answer.setTextAnswer(answerRequestDTO.getTextAnswer());
+        answer.setQuestion(questionRepository.findById(answerRequestDTO.getQuestionId()).get());
+        answer.setCorrectAnswer(answerRequestDTO.getCorrectAnswer());
+        //guardarmos la answer
+        answerRepository.save(answer);
+
+        AnswerResponseDTO answerResponseDTO =new AnswerResponseDTO().mapFromAnswer(answer);
+        return answerResponseDTO;
     }
 
     @Override
-    public ChallengeAnswer get(Long id)  {return answerRepository.findById(id).get();}
+    public AnswerResponseDTO getAnswerById(Long id)  {
+        ChallengeAnswer answer = answerRepository.findById(id).get();
+        AnswerResponseDTO answerResponseDTO = new AnswerResponseDTO().mapFromAnswer(answer);
+
+        return answerResponseDTO;}
 
     @Override
     public void delete (Long id){answerRepository.deleteById(id);
     }
     @Override
-    public ChallengeAnswer save(ChallengeAnswer challengeAnswer) {
-        return answerRepository.save(challengeAnswer);
+    public AnswerResponseDTO createAnswer(AnswerRequestDTO answerRequestDTO) {
+        //Transformar el answerRequestDTO en ChallengeAnswer
+        var answer = new ChallengeAnswer();
+        answer.setTextAnswer(answerRequestDTO.getTextAnswer());
+        answer.setQuestion(questionRepository.findById(answerRequestDTO.getQuestionId()).get());
+        answer.setCorrectAnswer(answerRequestDTO.getCorrectAnswer());
+        //guardarmos la answer
+        answerRepository.save(answer);
+        //Transformar answer en answerResponseDTO
+        var answerResponse = new AnswerResponseDTO().mapFromAnswer(answer);
+        return answerResponse;
     }
 
     @Override

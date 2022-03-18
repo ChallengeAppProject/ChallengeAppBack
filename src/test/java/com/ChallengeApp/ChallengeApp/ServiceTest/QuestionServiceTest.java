@@ -72,14 +72,14 @@ public class QuestionServiceTest {
     void questionServiceCanUpdateAQuestion(){
         //Creamos un RequestDTO
         QuestionRequestDTO questionRequestDTO = new QuestionRequestDTO();
-        Challenge challenge1 = new Challenge(1L, "");
+
         //Añadimos las propiedades del DTO
         questionRequestDTO.setChallengeQuestion("");
         questionRequestDTO.setChallengeId(1L);
         questionRequestDTO.setImgUrl("img.jpg");
 
         //Creamos un challenge
-
+        Challenge challenge1 = new Challenge(1L, "");
         challenge1.setName("");
 
         //Creamos una question
@@ -99,7 +99,7 @@ public class QuestionServiceTest {
         // nos devuelva la question
         Mockito.when(questionRepository.findById(1L)).thenReturn(Optional.of(question));
         //mediante Mockito pedimos que cuando se use la función .save del repositorio mockeado
-        // nos guarde la question
+        // nos devuelva la question
         Mockito.when(questionRepository.save(question)).thenReturn(question);
         //Creamos una implementación del servicio
         QuestionSqlServiceImp questionSqlServiceImp= new QuestionSqlServiceImp(questionRepository, challengeAppRepository);

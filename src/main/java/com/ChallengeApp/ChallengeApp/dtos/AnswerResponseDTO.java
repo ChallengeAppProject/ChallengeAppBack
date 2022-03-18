@@ -9,13 +9,13 @@ import lombok.Setter;
 @Setter
 
 public class AnswerResponseDTO {
-    private Long id;
+    private Long answerId;
     private Long questionId;
     private String textAnswer;
     private Boolean correctAnswer;
 
     public AnswerResponseDTO mapFromAnswer(ChallengeAnswer answer){
-        this.id = answer.getId();
+        this.answerId = answer.getId();
         this.questionId = answer.getQuestion().getId();
         this.textAnswer = answer.getTextAnswer();
         this.correctAnswer = answer.getCorrectAnswer();

@@ -7,6 +7,7 @@ import com.ChallengeApp.ChallengeApp.Repositories.AnswerRepository;
 import com.ChallengeApp.ChallengeApp.Repositories.QuestionRepository;
 import com.ChallengeApp.ChallengeApp.Services.AnswerSqlServiceImpl;
 import com.ChallengeApp.ChallengeApp.Services.QuestionSqlServiceImp;
+import com.ChallengeApp.ChallengeApp.dtos.AnswerRequestDTO;
 import com.ChallengeApp.ChallengeApp.dtos.AnswerResponseDTO;
 import com.ChallengeApp.ChallengeApp.dtos.QuestionResponseDTO;
 import org.junit.jupiter.api.Test;
@@ -30,62 +31,112 @@ public class AnswerServiceTest {
 
     @Mock
     AnswerRepository answerRepository;
+    @Mock
+    QuestionRepository questionRepository;
 
     @Test
-    void answerServiceCanSaveAQuestion(){
-        //GIVEN or ARRANGE (Creamos un Challenge, una question y una answer y usamos el mock del repo para guardar la answer)
+    void answerServiceCanCreateAnAnswer(){
+        //GIVEN or ARRANGE (Creamos un Challenge, una question y un AnswerRequestDTO
+        // y usamos el mock del repo para guardar la answer)
         Challenge challenge = new Challenge(1L, "ciencias");
         Question question = new Question(1L,"img.jpg","This is useful?",challenge);
-        ChallengeAnswer answer = new ChallengeAnswer(1L,true,"yes",question);
+        AnswerRequestDTO answerRequestDTO = new AnswerRequestDTO();
+        answerRequestDTO.setTextAnswer("No");
+        answerRequestDTO.setQuestionId(question.getId());
+        answerRequestDTO.setCorrectAnswer(true);
+
+        //Transformamos el request en answer
+        ChallengeAnswer answer = new ChallengeAnswer();
+        answer.setTextAnswer(answerRequestDTO.getTextAnswer());
+        answer.setCorrectAnswer(answerRequestDTO.getCorrectAnswer());
+        //Utilizamos Mock del repo de questions para pasarle la question a la answer
+        Mockito.when(questionRepository.findById(answerRequestDTO.getQuestionId())).thenReturn(Optional.of(question));
+        answer.setQuestion(question);
+        //Utilizamos el Mock del repo de answers para guardar la answer
         Mockito.when(answerRepository.save(answer)).thenReturn(answer);
-        var answerSqlServiceImp = new AnswerSqlServiceImpl(answerRepository);
+        answerRepository.save(answer);
+        //Transformamos la answer en ResponseDTO
+        AnswerResponseDTO answerResponseDTO = new AnswerResponseDTO();
+        answerResponseDTO.mapFromAnswer(answer);
+        //Cfreamos una implementación del service de answers
+        var answerSqlServiceImp = new AnswerSqlServiceImpl(answerRepository,questionRepository);
 
         //WHEN or ACT (llamamos a la función saveAnswer del servicio);
-        var sut = answerSqlServiceImp.saveAnswer(answer);
+        var sut = answerSqlServiceImp.createAnswer(answerRequestDTO);
 
         //THEN or ASSERT(verificamos answer=sut, textAnswer y que se ha usado el answerRepository.save())
-        assertThat(answer, equalTo(sut));
-        assertThat(answer.getTextAnswer(), equalTo("yes"));
+        assertThat(answer.getTextAnswer(), equalTo(sut.getTextAnswer()));
+        assertThat(answerRequestDTO.correctAnswer, equalTo(sut.getCorrectAnswer()));
+        assertEquals(answerRequestDTO.getQuestionId(),sut.getQuestionId());
         verify(answerRepository).save(answer);
+        //verify(questionRepository.findById(1L)); //NO PASA
     }
 
     @Test
-    void answerServiceCanReturnAQuestionById(){
+    void answerServiceCanReturnAnAnswerResponseDTOByAnswerId(){
         Challenge challenge = new Challenge(1L, "ciencias");
         Question question = new Question(1L,"img.jpg","This is useful?",challenge);
-        ChallengeAnswer answer = new ChallengeAnswer(1L,true,"yes",question);
+        ChallengeAnswer answer = new ChallengeAnswer(1L,true,"YES", question);
+
+
+
         Mockito.when(answerRepository.findById(1L)).thenReturn(Optional.of(answer));
-        var answerSqlServiceImp = new AnswerSqlServiceImpl(answerRepository);
+        var answerSqlServiceImp = new AnswerSqlServiceImpl(answerRepository,questionRepository);
 
-        var sut = answerSqlServiceImp.get(1L);
+        var sut = answerSqlServiceImp.getAnswerById(1L);
 
-        assertThat(answer, equalTo(sut));
-        assertThat(answer.getTextAnswer(), equalTo("yes"));
+        assertThat(answer.getTextAnswer(), equalTo(sut.getTextAnswer()));
+        assertThat(true, equalTo(sut.getCorrectAnswer()));
         verify(answerRepository).findById(1L);
     }
 
     @Test
-    void answerServiceCanUpdateAQuestion(){
+    void answerServiceCanUpdateAnAnswer(){
+        //Creamos un requestDTO desde una ChallengeAnswer
         Challenge challenge = new Challenge(2L,"testChallenge");
         Question question = new Question(1L,"img.jpg","This is useful?",challenge);
         ChallengeAnswer answer = new ChallengeAnswer(1L,true,"yes",question);
+
+        AnswerResponseDTO answerResponseDTO = new AnswerResponseDTO();
+        answerResponseDTO.mapFromAnswer(answer);
+        AnswerRequestDTO answerRequestDTO = new AnswerRequestDTO();
+        answerRequestDTO.setAnswerId(answer.getId());
+        answerRequestDTO.setTextAnswer("NO");
+        answerRequestDTO.setCorrectAnswer(answer.getCorrectAnswer());
+        answerRequestDTO.setQuestionId(answer.getQuestion().getId());
+
+        //Le pasamos los nuevos datos a la answer
+
+        answer.setTextAnswer(answerRequestDTO.getTextAnswer());
+
+        //Utilizamos el mock del repo para que nos devuelva una question
+        Mockito.when(questionRepository.findById(answerRequestDTO.questionId)).thenReturn(Optional.of(question));
+        //Utilizamos el mock del repo para que nos encuentre la answer
+        Mockito.when(answerRepository.findById(answerRequestDTO.answerId)).thenReturn(Optional.of(answer));
+        //Utilizamos el mock del repo para que nos devuelva
         Mockito.when(answerRepository.save(answer)).thenReturn(answer);
-        answer.setTextAnswer("No");
-        var answerSqlServiceImp = new AnswerSqlServiceImpl(answerRepository);
 
-        var sut = answerSqlServiceImp.save(answer);
+        var answerSqlServiceImp = new AnswerSqlServiceImpl(answerRepository,questionRepository);
 
-        assertThat(sut.getTextAnswer(),equalTo("No"));
+        var sut = answerSqlServiceImp.saveAnswer(answerRequestDTO);
+
+        assertThat(sut.getTextAnswer(),equalTo("NO"));
     }
 
     @Test
-    void answerServiceCanDeleteAQuestion(){
+    void answerServiceCanDeleteAnAnswer(){
         Challenge challenge = new Challenge(2L,"testChallenge");
         Question question = new Question(1L,"img.jpg","This is useful?",challenge);
         ChallengeAnswer answer = new ChallengeAnswer(1L,true,"yes",question);
-        var answerSqlServiceImp = new AnswerSqlServiceImpl(answerRepository);
 
-        answerSqlServiceImp.delete(1L);
+        AnswerRequestDTO answerRequestDTO = new AnswerRequestDTO();
+        answerRequestDTO.setAnswerId(answer.getId());
+
+        Mockito.when(answerRepository.findById(answerRequestDTO.answerId)).thenReturn(Optional.of(answer));
+
+        var answerSqlServiceImp = new AnswerSqlServiceImpl(answerRepository,questionRepository);
+
+        answerSqlServiceImp.delete(answerRequestDTO.getAnswerId());
 
         verify(answerRepository).deleteById(1L);
     }
@@ -118,7 +169,7 @@ public class AnswerServiceTest {
         // nos devuelva la lista de Questions
         Mockito.when(answerRepository.findAllByQuestion(question1)).thenReturn(answerList);
         //Creamos una implementación del servicio
-        AnswerSqlServiceImpl answerSqlServiceImpl = new AnswerSqlServiceImpl(answerRepository);
+        AnswerSqlServiceImpl answerSqlServiceImpl = new AnswerSqlServiceImpl(answerRepository,questionRepository);
 
         //WHEN - ACT
         // Utilizamos la función getAllByChallenges del servicio (la que usa la .findAllByChallenge del repo);

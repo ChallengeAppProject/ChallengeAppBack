@@ -25,7 +25,6 @@ public class QuestionSqlServiceImp implements QuestionService {
     @Override
     public QuestionResponseDTO get(Long id)  {
        Question question  = questionRepository.findById(id).get();
-        QuestionResponseDTO questionResponseDTO = new QuestionResponseDTO();
         var questionResponse = new QuestionResponseDTO().mapFromQuestion(question);
         return questionResponse; }
 
