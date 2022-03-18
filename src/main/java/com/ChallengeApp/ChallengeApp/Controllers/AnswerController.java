@@ -21,7 +21,7 @@ public class AnswerController {
     private AnswerService answerService;
 
     @GetMapping("/answers")
-    public List<ChallengeAnswer> getAllAnswer(){
+    public List<AnswerResponseDTO> getAllAnswer(){
         return answerService.getAllAnswer();
     }
     @PostMapping("/answers")

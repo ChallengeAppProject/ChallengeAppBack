@@ -8,7 +8,7 @@ import com.ChallengeApp.ChallengeApp.dtos.AnswerResponseDTO;
 import java.util.List;
 
 public interface AnswerService {
-    List<ChallengeAnswer> getAllAnswer();
+    List<AnswerResponseDTO> getAllAnswer();
     public AnswerResponseDTO saveAnswer(AnswerRequestDTO challengeAnswer);
     public AnswerResponseDTO getAnswerById(Long id);
     public void delete (Long id);

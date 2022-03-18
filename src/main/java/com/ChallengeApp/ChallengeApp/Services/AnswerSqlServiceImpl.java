@@ -24,8 +24,17 @@ public class AnswerSqlServiceImpl implements AnswerService{
     }
 
     @Override
-    public List<ChallengeAnswer> getAllAnswer(){
-        return answerRepository.findAll();
+    public List<AnswerResponseDTO> getAllAnswer(){
+        List<AnswerResponseDTO> answerResponseDTOList = new ArrayList<AnswerResponseDTO>();
+        List<ChallengeAnswer> answerList = answerRepository.findAll();
+        for(ChallengeAnswer answer :answerList){
+            AnswerResponseDTO answerResponseDTO = new AnswerResponseDTO();
+            answerResponseDTO.mapFromAnswer(answer);
+            answerResponseDTOList.add(answerResponseDTO);
+        }
+        return answerResponseDTOList;
+
+
     }
 
     @Override
