@@ -47,6 +47,6 @@ public class UserQuestionServiceTest {
 
 
         assertTrue(userQuestion1.isUserRight());
-       // assertThat(userQuestionSqlService.getChallengeTotalScore(), equalTo("Has acertado "+0+" preguntas"));
+        assertThat(userQuestion1.correctAnswersCounter(userQuestions), equalTo(1));
     }
 }
