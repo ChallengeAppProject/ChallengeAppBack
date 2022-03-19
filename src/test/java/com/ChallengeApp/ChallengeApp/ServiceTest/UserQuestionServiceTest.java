@@ -15,6 +15,7 @@ import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
@@ -48,5 +49,25 @@ public class UserQuestionServiceTest {
 
         assertTrue(userQuestion1.isUserRight());
         assertThat(userQuestion1.correctAnswersCounter(userQuestions), equalTo(1));
+    }
+
+   @Test
+    void userQuestionQuestionsCanReturnTheChallengeTheyBelongTo() {
+        Challenge challenge1 = new Challenge(1L,"Programacion");
+        Question question1 = new Question();
+        question1.setChallenge(challenge1);
+        User user = new User(3L,"Carmen");
+        ChallengeAnswer challengeAnswer1 = new ChallengeAnswer(1L,false, "Es correcto",question1);
+        UserQuestion userQuestion = new UserQuestion(1L,user,question1,challengeAnswer1);
+
+        var sut = userQuestion.challenge();
+
+        assertThat(sut, equalTo(challenge1));
+    }
+
+    void userQuestionListResponseDTOReturnsListOfUserQuestion() {
+
+
+
     }
 }
