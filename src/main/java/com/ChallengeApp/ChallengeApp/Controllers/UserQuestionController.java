@@ -11,15 +11,14 @@ import com.ChallengeApp.ChallengeApp.Services.ChallengeService;
 import com.ChallengeApp.ChallengeApp.Services.QuestionService;
 import com.ChallengeApp.ChallengeApp.Services.UserQuestionService;
 import com.ChallengeApp.ChallengeApp.Services.UserQuestionSqlServiceImpl;
-import com.ChallengeApp.ChallengeApp.dtos.QuestionListResponseDTO;
-import com.ChallengeApp.ChallengeApp.dtos.UserQuestionResponseDTO;
+import com.ChallengeApp.ChallengeApp.dtos.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 
 @RestController
@@ -32,12 +31,12 @@ public class UserQuestionController {
     @Autowired
     private UserRepository userRepository;
 
-    public UserQuestionController(UserQuestionService userQuestionService, ChallengeService challengeService){
+    public UserQuestionController(UserQuestionService userQuestionService, ChallengeService challengeService) {
         this.userQuestionService = userQuestionService;
         this.challengeService = challengeService;
     }
 
-    private User getAuthUser (){
+    private User getAuthUser() {
 
         return userRepository.getById(1L);
     }
@@ -45,9 +44,25 @@ public class UserQuestionController {
 
     @GetMapping("/userQuestion/challenge/{id}")
     public QuestionListResponseDTO getAllfindAllByUserAndQuestion_Challenge(@PathVariable Long id) {
-        User user= getAuthUser();
+        User user = getAuthUser();
         Challenge challenge = challengeService.getById(id);
-        return userQuestionService.getAllfindAllByUserAndQuestion_Challenge(user, challenge );
+        return userQuestionService.getAllfindAllByUserAndQuestion_Challenge(user, challenge);
+    }
+
+    @PostMapping("/userQuestion/challenge/{id}")
+    public ResponseEntity<UserQuestionResponseDTO> addUserAnswer(@RequestBody UserQuestionRequestDTO userQuestionRequestDTO,
+                                                                 @PathVariable Long id) {
+        try {
+            userQuestionRequestDTO.setChallengeId(id);
+            userQuestionRequestDTO.setUserId(1L);
+            UserQuestionResponseDTO userQuestionResponseDTO = userQuestionService.save(userQuestionRequestDTO);
+            return new ResponseEntity<UserQuestionResponseDTO>(userQuestionResponseDTO, HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<UserQuestionResponseDTO>(HttpStatus.NOT_FOUND);
+        }
     }
 }
+
+
+
 
