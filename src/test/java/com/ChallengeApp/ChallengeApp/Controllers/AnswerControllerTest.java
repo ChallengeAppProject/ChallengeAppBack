@@ -33,6 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(AnswerController.class)
 class AnswerControllerTest {
 
+
     @Autowired
     MockMvc mockMvc;
 
@@ -42,12 +43,12 @@ class AnswerControllerTest {
     @Mock
     AnswerRepository answerRepository;
 
-/*    @Test
-   void getAllMethodShouldReturnAListOfAnswers() throws Exception {
-
+    @Test
+    void getAllMethodShouldReturnAListOfAnswers() throws Exception {
+/*
         Challenge challenge1 = new Challenge();
 
-        Question question1 = new Question(1L,"ImgUrl","Qué hora es?",challenge1);
+        Question question1 = new Question(1L, "ImgUrl", "Qué hora es?", challenge1);
 
         question1.setChallenge(challenge1);
 
@@ -72,17 +73,17 @@ class AnswerControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize(2)));
 
 
-    }*/
+    }
 
-/*
+
     @Test
     public void PostANewAnswerReturnsConfirmationMessage() throws Exception {
 
-       Challenge challenge1 = new Challenge(1L,"testChallenge1");
+        Challenge challenge1 = new Challenge(1L, "testChallenge1");
 
-        Question question1 = new Question(1L,"img1.jpg","This is useful?",challenge1);
+        Question question1 = new Question(1L, "img1.jpg", "This is useful?", challenge1);
 
-        ChallengeAnswer challengeAnswer1 = new ChallengeAnswer(1L,true,"Si",question1);
+        ChallengeAnswer challengeAnswer1 = new ChallengeAnswer(1L, true, "Si", question1);
 
         AnswerResponseDTO answerResponseDTO = new AnswerResponseDTO();
         answerResponseDTO.mapFromAnswer(challengeAnswer1);
@@ -95,16 +96,15 @@ class AnswerControllerTest {
 
         when(answerService.createAnswer(answerRequestDTO)).thenReturn(answerResponseDTO);
         when(answerService.saveAnswer(answerRequestDTO)).thenReturn(messageExpected);
-)
-
 
 
         var sut = mockMvc.perform(post("/answers"))
-                        .andDo(print())
-                        .andExpect(status().isOk())
-                        .andReturn().getResponse().getContentAsString();
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString();
 
-        assertEquals(messageExpected,sut);
+        assertEquals(messageExpected, sut);
+    }*/
+
     }
-
-}*/
+}
