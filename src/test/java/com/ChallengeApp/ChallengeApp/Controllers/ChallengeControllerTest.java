@@ -52,9 +52,9 @@ class ChallengeControllerTest {
     @Test
     public void getAllMethodShouldReturnAListOfChallenges() throws Exception {
 
-        Challenge challenge1 = new Challenge();
-        Challenge challenge2 = new Challenge();
-        Challenge challenge3 = new Challenge();
+        Challenge challenge1 = new Challenge(1L, "Arte");
+        Challenge challenge2 = new Challenge(2L, "Matematicas");
+        Challenge challenge3 = new Challenge(3L, "Ciencias");
 
 
         Mockito.when(challengeAppRepository.save(challenge1)).thenReturn(challenge1);
@@ -72,9 +72,12 @@ class ChallengeControllerTest {
         when(challengeService.getAllChallenges()).thenReturn(challengeList);
 
 
+
+
         mockMvc.perform(get("/challenges"))
                 .andDo(print())
                 .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].name", Matchers.is("Arte")))
                 .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize(3)));
     }
 
