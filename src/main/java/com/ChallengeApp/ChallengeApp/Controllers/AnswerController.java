@@ -1,9 +1,8 @@
 package com.ChallengeApp.ChallengeApp.Controllers;
-
-import com.ChallengeApp.ChallengeApp.Models.ChallengeAnswer;
 import com.ChallengeApp.ChallengeApp.Services.AnswerService;
 import com.ChallengeApp.ChallengeApp.dtos.AnswerRequestDTO;
 import com.ChallengeApp.ChallengeApp.dtos.AnswerResponseDTO;
+import com.ChallengeApp.ChallengeApp.dtos.QuestionResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,11 +23,18 @@ public class AnswerController {
     public List<AnswerResponseDTO> getAllAnswer(){
         return answerService.getAllAnswer();
     }
-    @PostMapping("/answers")
-   public String addAnswer(@RequestBody AnswerRequestDTO answerRequestDTO) {
-    answerService.saveAnswer(answerRequestDTO);
-    return "New answer created";
+
+    @PostMapping("/questions/{id}/answer")
+   public ResponseEntity<AnswerResponseDTO> addAnswer(@PathVariable Long id, @RequestBody AnswerRequestDTO answerRequestDTO) {
+        try{
+            answerRequestDTO.setQuestionId(id);
+            AnswerResponseDTO answerResponseDTO = answerService.createAnswer(answerRequestDTO);
+            return new ResponseEntity<AnswerResponseDTO>(answerResponseDTO, HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<AnswerResponseDTO>(HttpStatus.NOT_FOUND);
+        }
     }
+
     @GetMapping("/answers/{id}")
     public ResponseEntity<AnswerResponseDTO> get(@PathVariable Long id) {
 
