@@ -1,8 +1,7 @@
 package com.ChallengeApp.ChallengeApp.ServiceTest;
 
 import com.ChallengeApp.ChallengeApp.Models.*;
-import com.ChallengeApp.ChallengeApp.Repositories.UserQuestionRepository;
-import com.ChallengeApp.ChallengeApp.Repositories.UserRepository;
+import com.ChallengeApp.ChallengeApp.Repositories.*;
 import com.ChallengeApp.ChallengeApp.Services.UserQuestionService;
 import com.ChallengeApp.ChallengeApp.Services.UserQuestionSqlServiceImpl;
 import org.junit.jupiter.api.Test;
@@ -22,6 +21,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class UserQuestionServiceTest {
     @Mock
     UserQuestionRepository userQuestionRepository;
+    @Mock
+    AnswerRepository answerRepository;
+    @Mock
+    UserRepository userRepository;
+    @Mock
+    QuestionRepository questionRepository;
+    @Mock
+    ChallengeAppRepository challengeAppRepository;
 
     @Test
     void userHaveAChallengeTotalScore(){
@@ -44,7 +51,8 @@ public class UserQuestionServiceTest {
 
         Mockito.when(userQuestionRepository.findAllByUserAndQuestion_Challenge(user1,challenge)).thenReturn(userQuestions);
 
-        UserQuestionSqlServiceImpl userQuestionSqlService = new UserQuestionSqlServiceImpl(userQuestionRepository);
+        UserQuestionSqlServiceImpl userQuestionSqlService = new UserQuestionSqlServiceImpl(userQuestionRepository, answerRepository,
+                userRepository, questionRepository, challengeAppRepository);
 
 
         assertTrue(userQuestion1.isUserRight());

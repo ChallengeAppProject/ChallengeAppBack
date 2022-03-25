@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.*;
 @DataJpaTest
 class UserQuestionRepositoryTest {
@@ -17,20 +19,23 @@ class UserQuestionRepositoryTest {
 
     @Test
     void findAllByUserAndQuestion_Challenge() {
-        /*Challenge challenge = new Challenge(1L,"Matematicas");
-        Question question1 = new Question();
-        ChallengeAnswer challengeAnswer1 = new ChallengeAnswer(1L, true,"Es cierto",question1 );
-        question1.setChallenge(challenge);
-        User user1 = new User(2L, "Pepe");
-        UserQuestion userQuestion1 = new UserQuestion(1L, user1,question1,challengeAnswer1);
-
+        Challenge challenge = new Challenge();
         testEntityManager.persist(challenge);
+        Question question1 = new Question();
+        ChallengeAnswer challengeAnswer1 = new ChallengeAnswer();
+        User user1 = new User();
+        user1.setUserName("Pepe");
+        UserQuestion userQuestion1 = new UserQuestion();
+
+
         testEntityManager.persist(user1);
         testEntityManager.persist(question1);
         testEntityManager.persist(challengeAnswer1);
         testEntityManager.persist(userQuestion1);
 
-        testEntityManager.flush();*/
+        testEntityManager.flush();
+
+        assertThat(user1.getUserName(), equalTo("Pepe"));
 
 
     }
