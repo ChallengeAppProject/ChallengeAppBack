@@ -13,12 +13,12 @@ import java.util.List;
 
 @Service
 
-public class AnswerSqlServiceImpl implements AnswerService{
+public class AnswerServiceImpl implements AnswerService{
 
     private AnswerRepository answerRepository;
     private QuestionRepository questionRepository;
 
-    public AnswerSqlServiceImpl(AnswerRepository answerRepository, QuestionRepository questionRepository) {
+    public AnswerServiceImpl(AnswerRepository answerRepository, QuestionRepository questionRepository) {
         this.answerRepository = answerRepository;
         this.questionRepository = questionRepository;
     }

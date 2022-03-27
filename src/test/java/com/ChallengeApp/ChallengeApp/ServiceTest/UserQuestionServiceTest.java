@@ -2,8 +2,7 @@ package com.ChallengeApp.ChallengeApp.ServiceTest;
 
 import com.ChallengeApp.ChallengeApp.Models.*;
 import com.ChallengeApp.ChallengeApp.Repositories.*;
-import com.ChallengeApp.ChallengeApp.Services.UserQuestionService;
-import com.ChallengeApp.ChallengeApp.Services.UserQuestionSqlServiceImpl;
+import com.ChallengeApp.ChallengeApp.Services.UserQuestionServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -51,7 +50,7 @@ public class UserQuestionServiceTest {
 
         Mockito.when(userQuestionRepository.findAllByUserAndQuestion_Challenge(user1,challenge)).thenReturn(userQuestions);
 
-        UserQuestionSqlServiceImpl userQuestionSqlService = new UserQuestionSqlServiceImpl(userQuestionRepository, answerRepository,
+        UserQuestionServiceImpl userQuestionSqlService = new UserQuestionServiceImpl(userQuestionRepository, answerRepository,
                 userRepository, questionRepository, challengeAppRepository);
 
 
@@ -74,8 +73,6 @@ public class UserQuestionServiceTest {
     }
 
     void userQuestionListResponseDTOReturnsListOfUserQuestion() {
-
-
 
     }
 }

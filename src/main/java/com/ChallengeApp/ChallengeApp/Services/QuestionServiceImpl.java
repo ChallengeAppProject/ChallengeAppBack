@@ -6,18 +6,17 @@ import com.ChallengeApp.ChallengeApp.Repositories.ChallengeAppRepository;
 import com.ChallengeApp.ChallengeApp.Repositories.QuestionRepository;
 import com.ChallengeApp.ChallengeApp.dtos.QuestionRequestDTO;
 import com.ChallengeApp.ChallengeApp.dtos.QuestionResponseDTO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.lang.Long;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class QuestionSqlServiceImp implements QuestionService {
+public class QuestionServiceImpl implements QuestionService {
 
     private QuestionRepository questionRepository;
     private ChallengeAppRepository challengeAppRepository;
-    public QuestionSqlServiceImp(QuestionRepository questionRepository, ChallengeAppRepository challengeAppRepository) {
+    public QuestionServiceImpl(QuestionRepository questionRepository, ChallengeAppRepository challengeAppRepository) {
         this.questionRepository = questionRepository;
         this.challengeAppRepository = challengeAppRepository;
     }

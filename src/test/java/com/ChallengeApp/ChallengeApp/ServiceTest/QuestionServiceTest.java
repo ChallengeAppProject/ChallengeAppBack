@@ -4,7 +4,7 @@ import com.ChallengeApp.ChallengeApp.Models.Challenge;
 import com.ChallengeApp.ChallengeApp.Models.Question;
 import com.ChallengeApp.ChallengeApp.Repositories.ChallengeAppRepository;
 import com.ChallengeApp.ChallengeApp.Repositories.QuestionRepository;
-import com.ChallengeApp.ChallengeApp.Services.QuestionSqlServiceImp;
+import com.ChallengeApp.ChallengeApp.Services.QuestionServiceImpl;
 import com.ChallengeApp.ChallengeApp.dtos.QuestionRequestDTO;
 import com.ChallengeApp.ChallengeApp.dtos.QuestionResponseDTO;
 import org.junit.jupiter.api.Test;
@@ -45,7 +45,7 @@ public class QuestionServiceTest {
         //Mockito.when(challengeAppRepository.findById(1L).get()).thenReturn(challenge);
         Mockito.when(questionRepository.save(question)).thenReturn(question);
 
-        QuestionSqlServiceImp questionSqlServiceImp = new QuestionSqlServiceImp(questionRepository, challengeAppRepository);
+        QuestionServiceImpl questionSqlServiceImp = new QuestionServiceImpl(questionRepository, challengeAppRepository);
 
         var sut = questionSqlServiceImp.createQuestion(questionRequestDTO);
 
@@ -59,7 +59,7 @@ public class QuestionServiceTest {
         Challenge challenge = new Challenge(1L, "ciencias");
         Question question = new Question(1L,"img.jpg","This is useful?",challenge);
         Mockito.when(questionRepository.findById(1L)).thenReturn(Optional.of(question));
-        var questionSqlServiceImp = new QuestionSqlServiceImp(questionRepository, challengeAppRepository);
+        var questionSqlServiceImp = new QuestionServiceImpl(questionRepository, challengeAppRepository);
 
         var sut = questionSqlServiceImp.get(1L);
 
@@ -102,7 +102,7 @@ public class QuestionServiceTest {
         // nos devuelva la question
         Mockito.when(questionRepository.save(question)).thenReturn(question);
         //Creamos una implementación del servicio
-        QuestionSqlServiceImp questionSqlServiceImp= new QuestionSqlServiceImp(questionRepository, challengeAppRepository);
+        QuestionServiceImpl questionSqlServiceImp= new QuestionServiceImpl(questionRepository, challengeAppRepository);
         //WHEN -ACT
         // Utilizamos la función saveQuestion del servicio (la que usa la .findById y .save del repo);
         var sut = questionSqlServiceImp.saveQuestion(questionRequestDTO, questionResponse.getId());
@@ -118,7 +118,7 @@ public class QuestionServiceTest {
         Question question = new Question(1L,"img.jpg","This is useful?",challenge);
         QuestionResponseDTO questionResponseDTO = new QuestionResponseDTO();
         questionResponseDTO.setId(question.getId());
-        var questionSqlServiceImp = new QuestionSqlServiceImp(questionRepository, challengeAppRepository);
+        var questionSqlServiceImp = new QuestionServiceImpl(questionRepository, challengeAppRepository);
 
         Mockito.when(questionRepository.findById(questionResponseDTO.getId())).thenReturn(Optional.of(question));
          questionSqlServiceImp.delete(questionResponseDTO.getId());
@@ -136,7 +136,7 @@ public class QuestionServiceTest {
         questionList.add(question2);
         Mockito.when(questionRepository.findAllByChallenge(testChallenge)).thenReturn(questionList);
 
-        var questionService = new QuestionSqlServiceImp(questionRepository, challengeAppRepository);
+        var questionService = new QuestionServiceImpl(questionRepository, challengeAppRepository);
 
         var sut = questionService.getAllByChallenge(testChallenge);
 
@@ -170,7 +170,7 @@ public class QuestionServiceTest {
         // nos devuelva la lista de Questions
         Mockito.when(questionRepository.findAllByChallenge(challenge1)).thenReturn(questionList);
         //Creamos una implementación del servicio
-        QuestionSqlServiceImp questionSqlServiceImp = new QuestionSqlServiceImp(questionRepository, challengeAppRepository);
+        QuestionServiceImpl questionSqlServiceImp = new QuestionServiceImpl(questionRepository, challengeAppRepository);
 
         //WHEN - ACT
         // Utilizamos la función getAllByChallenges del servicio (la que usa la .findAllByChallenge del repo);

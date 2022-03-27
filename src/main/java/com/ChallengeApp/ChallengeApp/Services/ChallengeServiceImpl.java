@@ -1,7 +1,6 @@
 package com.ChallengeApp.ChallengeApp.Services;
 
 import com.ChallengeApp.ChallengeApp.Models.Challenge;
-import com.ChallengeApp.ChallengeApp.Models.Question;
 import com.ChallengeApp.ChallengeApp.Repositories.ChallengeAppRepository;
 import com.ChallengeApp.ChallengeApp.dtos.ChallengeRequestDTO;
 import com.ChallengeApp.ChallengeApp.dtos.ChallengeResponseDTO;
@@ -11,10 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class ChallengeSqlServiceImpl implements ChallengeService {
+public class ChallengeServiceImpl implements ChallengeService {
 
     private ChallengeAppRepository challengeAppRepository;
-    public ChallengeSqlServiceImpl(ChallengeAppRepository challengeAppRepository) {
+    public ChallengeServiceImpl(ChallengeAppRepository challengeAppRepository) {
         this.challengeAppRepository = challengeAppRepository;
     }
     @Override

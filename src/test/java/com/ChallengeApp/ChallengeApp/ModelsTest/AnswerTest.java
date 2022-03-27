@@ -1,4 +1,4 @@
-package com.ChallengeApp.ChallengeApp.DomainTest.AnswerTest;
+package com.ChallengeApp.ChallengeApp.ModelsTest;
 
 import com.ChallengeApp.ChallengeApp.Models.ChallengeAnswer;
 import com.ChallengeApp.ChallengeApp.Models.Question;

@@ -2,22 +2,19 @@ package com.ChallengeApp.ChallengeApp.Services;
 
 
 import com.ChallengeApp.ChallengeApp.Models.Challenge;
-import com.ChallengeApp.ChallengeApp.Models.Question;
 import com.ChallengeApp.ChallengeApp.Models.User;
 import com.ChallengeApp.ChallengeApp.Models.UserQuestion;
 import com.ChallengeApp.ChallengeApp.Repositories.*;
 import com.ChallengeApp.ChallengeApp.dtos.QuestionListResponseDTO;
 
-import com.ChallengeApp.ChallengeApp.dtos.QuestionResponseDTO;
 import com.ChallengeApp.ChallengeApp.dtos.UserQuestionRequestDTO;
 import com.ChallengeApp.ChallengeApp.dtos.UserQuestionResponseDTO;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class UserQuestionSqlServiceImpl implements UserQuestionService {
+public class UserQuestionServiceImpl implements UserQuestionService {
 
     private UserQuestionRepository userQuestionRepository;
     private AnswerRepository answerRepository;
@@ -25,8 +22,8 @@ public class UserQuestionSqlServiceImpl implements UserQuestionService {
     private QuestionRepository questionRepository;
     private ChallengeAppRepository challengeAppRepository;
 
-    public UserQuestionSqlServiceImpl(UserQuestionRepository userQuestionRepository, AnswerRepository answerRepository,
-                                      UserRepository userRepository, QuestionRepository questionRepository, ChallengeAppRepository challengeAppRepository) {
+    public UserQuestionServiceImpl(UserQuestionRepository userQuestionRepository, AnswerRepository answerRepository,
+                                   UserRepository userRepository, QuestionRepository questionRepository, ChallengeAppRepository challengeAppRepository) {
         this.userQuestionRepository = userQuestionRepository;
         this.answerRepository = answerRepository;
         this.userRepository = userRepository;

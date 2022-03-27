@@ -16,8 +16,13 @@ import java.util.NoSuchElementException;
 @CrossOrigin
 public class AnswerController {
 
-    @Autowired
+
     private AnswerService answerService;
+
+    public AnswerController (AnswerService answerService){
+        this.answerService= answerService;
+    }
+
 
     @GetMapping("/answers")
     public List<AnswerResponseDTO> getAllAnswer(){
@@ -29,7 +34,7 @@ public class AnswerController {
         try{
             answerRequestDTO.setQuestionId(id);
             AnswerResponseDTO answerResponseDTO = answerService.createAnswer(answerRequestDTO);
-            return new ResponseEntity<AnswerResponseDTO>(answerResponseDTO, HttpStatus.OK);
+            return new ResponseEntity<AnswerResponseDTO>(answerResponseDTO, HttpStatus.CREATED);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<AnswerResponseDTO>(HttpStatus.NOT_FOUND);
         }

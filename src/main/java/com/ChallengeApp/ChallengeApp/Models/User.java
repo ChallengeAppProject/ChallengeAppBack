@@ -5,16 +5,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(name="users")
 public class User {
 
     @Id
@@ -23,7 +21,4 @@ public class User {
     private Long id;
     private String userName;
 
-    public String getUserName(String userName) {
-        return userName;
-    }
 }

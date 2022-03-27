@@ -5,16 +5,12 @@ import com.ChallengeApp.ChallengeApp.Models.ChallengeAnswer;
 import com.ChallengeApp.ChallengeApp.Models.Question;
 import com.ChallengeApp.ChallengeApp.Repositories.AnswerRepository;
 import com.ChallengeApp.ChallengeApp.Repositories.QuestionRepository;
-import com.ChallengeApp.ChallengeApp.Services.AnswerSqlServiceImpl;
-import com.ChallengeApp.ChallengeApp.Services.QuestionSqlServiceImp;
+import com.ChallengeApp.ChallengeApp.Services.AnswerServiceImpl;
 import com.ChallengeApp.ChallengeApp.dtos.AnswerRequestDTO;
 import com.ChallengeApp.ChallengeApp.dtos.AnswerResponseDTO;
-import com.ChallengeApp.ChallengeApp.dtos.QuestionResponseDTO;
 import org.junit.jupiter.api.Test;
-import org.mockito.Answers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.stubbing.Answer;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
@@ -59,7 +55,7 @@ public class AnswerServiceTest {
         AnswerResponseDTO answerResponseDTO = new AnswerResponseDTO();
         answerResponseDTO.mapFromAnswer(answer);
         //Cfreamos una implementación del service de answers
-        var answerSqlServiceImp = new AnswerSqlServiceImpl(answerRepository,questionRepository);
+        var answerSqlServiceImp = new AnswerServiceImpl(answerRepository,questionRepository);
 
         //WHEN or ACT (llamamos a la función saveAnswer del servicio);
         var sut = answerSqlServiceImp.createAnswer(answerRequestDTO);
@@ -81,7 +77,7 @@ public class AnswerServiceTest {
 
 
         Mockito.when(answerRepository.findById(1L)).thenReturn(Optional.of(answer));
-        var answerSqlServiceImp = new AnswerSqlServiceImpl(answerRepository,questionRepository);
+        var answerSqlServiceImp = new AnswerServiceImpl(answerRepository,questionRepository);
 
         var sut = answerSqlServiceImp.getAnswerById(1L);
 
@@ -116,7 +112,7 @@ public class AnswerServiceTest {
         //Utilizamos el mock del repo para que nos devuelva
         Mockito.when(answerRepository.save(answer)).thenReturn(answer);
 
-        var answerSqlServiceImp = new AnswerSqlServiceImpl(answerRepository,questionRepository);
+        var answerSqlServiceImp = new AnswerServiceImpl(answerRepository,questionRepository);
 
         var sut = answerSqlServiceImp.saveAnswer(answerRequestDTO);
 
@@ -134,7 +130,7 @@ public class AnswerServiceTest {
 
         Mockito.when(answerRepository.findById(answerRequestDTO.answerId)).thenReturn(Optional.of(answer));
 
-        var answerSqlServiceImp = new AnswerSqlServiceImpl(answerRepository,questionRepository);
+        var answerSqlServiceImp = new AnswerServiceImpl(answerRepository,questionRepository);
 
         answerSqlServiceImp.delete(answerRequestDTO.getAnswerId());
 
@@ -169,7 +165,7 @@ public class AnswerServiceTest {
         // nos devuelva la lista de Questions
         Mockito.when(answerRepository.findAllByQuestion(question1)).thenReturn(answerList);
         //Creamos una implementación del servicio
-        AnswerSqlServiceImpl answerSqlServiceImpl = new AnswerSqlServiceImpl(answerRepository,questionRepository);
+        AnswerServiceImpl answerSqlServiceImpl = new AnswerServiceImpl(answerRepository,questionRepository);
 
         //WHEN - ACT
         // Utilizamos la función getAllByChallenges del servicio (la que usa la .findAllByChallenge del repo);

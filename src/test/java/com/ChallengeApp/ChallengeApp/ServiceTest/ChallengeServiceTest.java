@@ -2,8 +2,7 @@ package com.ChallengeApp.ChallengeApp.ServiceTest;
 
 import com.ChallengeApp.ChallengeApp.Models.Challenge;
 import com.ChallengeApp.ChallengeApp.Repositories.ChallengeAppRepository;
-import com.ChallengeApp.ChallengeApp.Repositories.QuestionRepository;
-import com.ChallengeApp.ChallengeApp.Services.ChallengeSqlServiceImpl;
+import com.ChallengeApp.ChallengeApp.Services.ChallengeServiceImpl;
 import com.ChallengeApp.ChallengeApp.dtos.ChallengeRequestDTO;
 import com.ChallengeApp.ChallengeApp.dtos.ChallengeResponseDTO;
 import org.junit.jupiter.api.Test;
@@ -47,7 +46,7 @@ public class ChallengeServiceTest {
         // nos devuelva el challenge
         Mockito.when(challengeAppRepository.findById(2L)).thenReturn(Optional.of(testChallenge));
 
-        var challService = new ChallengeSqlServiceImpl(challengeAppRepository);
+        var challService = new ChallengeServiceImpl(challengeAppRepository);
 
         challService.delete(challengeResponseDTO.getId());
 
@@ -80,7 +79,7 @@ public class ChallengeServiceTest {
         Mockito.when(challengeAppRepository.findAll()).thenReturn(challengeList);
 
         //Creamos una implementación del servicio
-        ChallengeSqlServiceImpl challengeSqlService = new ChallengeSqlServiceImpl(challengeAppRepository);
+        ChallengeServiceImpl challengeSqlService = new ChallengeServiceImpl(challengeAppRepository);
 
         //WHEN - ACT
         // Utilizamos la función getAllChallenges del servicio (la que usa la .findAll del repo);
@@ -107,7 +106,7 @@ public class ChallengeServiceTest {
         Mockito.when(challengeAppRepository.findById(1L)).thenReturn(Optional.of(challenge));
 
         //Creamos una implementación del servicio
-        ChallengeSqlServiceImpl challengeSqlService = new ChallengeSqlServiceImpl(challengeAppRepository);
+        ChallengeServiceImpl challengeSqlService = new ChallengeServiceImpl(challengeAppRepository);
 
         //WHEN - ACT
         // Utilizamos la función get del servicio (la que usa la .findById del repo);
@@ -130,7 +129,7 @@ public class ChallengeServiceTest {
         Mockito.when(challengeAppRepository.save(challenge)).thenReturn(challenge);
 
         //Creamos una implementación del servicio
-        ChallengeSqlServiceImpl challengeSqlService = new ChallengeSqlServiceImpl(challengeAppRepository);
+        ChallengeServiceImpl challengeSqlService = new ChallengeServiceImpl(challengeAppRepository);
 
         //WHEN -ACT
         // Utilizamos la función createChallenge del servicio (la que usa la .save del repo);
@@ -153,7 +152,7 @@ public class ChallengeServiceTest {
         Mockito.when(challengeAppRepository.findById(1L)).thenReturn(Optional.of(challenge));
 
         //Creamos una implementación del servicio
-        var challengeSqlService = new ChallengeSqlServiceImpl(challengeAppRepository);
+        var challengeSqlService = new ChallengeServiceImpl(challengeAppRepository);
 
         //WHEN -ACT
         // Utilizamos la función delete del servicio (la que usa la .deleteById del repo);
@@ -185,7 +184,7 @@ public class ChallengeServiceTest {
         // nos guarde el challenge
         Mockito.when(challengeAppRepository.save(challenge)).thenReturn(challenge);
         //Creamos una implementación del servicio
-        ChallengeSqlServiceImpl challengeSqlService = new ChallengeSqlServiceImpl(challengeAppRepository);
+        ChallengeServiceImpl challengeSqlService = new ChallengeServiceImpl(challengeAppRepository);
 
         //WHEN -ACT
         // Utilizamos la función saveChallenge del servicio (la que usa la .findById y .save del repo);

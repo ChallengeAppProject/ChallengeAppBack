@@ -1,23 +1,16 @@
 package com.ChallengeApp.ChallengeApp.Controllers;
 
 import com.ChallengeApp.ChallengeApp.Models.Challenge;
-import com.ChallengeApp.ChallengeApp.Models.Question;
 import com.ChallengeApp.ChallengeApp.Models.User;
-import com.ChallengeApp.ChallengeApp.Models.UserQuestion;
-import com.ChallengeApp.ChallengeApp.Repositories.ChallengeAppRepository;
-import com.ChallengeApp.ChallengeApp.Repositories.UserQuestionRepository;
 import com.ChallengeApp.ChallengeApp.Repositories.UserRepository;
 import com.ChallengeApp.ChallengeApp.Services.ChallengeService;
-import com.ChallengeApp.ChallengeApp.Services.QuestionService;
 import com.ChallengeApp.ChallengeApp.Services.UserQuestionService;
-import com.ChallengeApp.ChallengeApp.Services.UserQuestionSqlServiceImpl;
 import com.ChallengeApp.ChallengeApp.dtos.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.NoSuchElementException;
 
 @CrossOrigin
