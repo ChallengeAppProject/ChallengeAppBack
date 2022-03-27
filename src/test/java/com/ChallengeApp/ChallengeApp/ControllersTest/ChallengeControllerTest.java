@@ -20,8 +20,9 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -103,6 +104,24 @@ class ChallengeControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk());
 
+    }
+
+    @Test
+    public void whenDeletingAChallengeReturnConfirmationString() throws Exception {
+        String expected = "Deleted challenge 1";
+
+        Challenge challenge1 = new Challenge(1L, "Mates");
+        ChallengeResponseDTO challengeResponseDTO = new ChallengeResponseDTO();
+        challengeResponseDTO.mapFromChallenge(challenge1);
+
+
+        var sut = mockMvc.perform(delete("/challenges/1")
+                        .accept(MediaType.APPLICATION_JSON))
+                        .andDo(print())
+                        .andExpect(status().isOk())
+                        .andReturn().getResponse().getContentAsString();
+
+        assertEquals(expected,sut);
     }
 
 

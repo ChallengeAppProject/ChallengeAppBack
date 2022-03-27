@@ -50,8 +50,6 @@ public class QuestionServiceTest {
         var sut = questionSqlServiceImp.createQuestion(questionRequestDTO);
 
         assertThat(questionRequestDTO.getChallengeQuestion(), equalTo(sut.getChallengeQuestion()));
-        /*assertThat(question.getChallengeQuestion(), equalTo("This is useful?"));
-        verify(questionRepository).save(question);*/
     }
 
     @Test

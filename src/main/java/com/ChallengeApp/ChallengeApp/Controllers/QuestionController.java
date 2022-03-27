@@ -82,8 +82,12 @@ public class QuestionController {
     }
 
     @GetMapping("/questions/{id}/answers")
-    public List<AnswerResponseDTO> getAllAnswers(@PathVariable Long id, Question question) {
-        return answerService.getAllByQuestion(question);
+    public List <AnswerResponseDTO> getAllAnswers(@PathVariable Long id, Question question) {
+       try{
+           List <AnswerResponseDTO> answerResponseDTOList = answerService.getAllByQuestion(question);
+           return answerResponseDTOList;}
+       catch(NoSuchElementException e){
+           return answerService.getAllByQuestion(question);
+       }
     }
-
 }
