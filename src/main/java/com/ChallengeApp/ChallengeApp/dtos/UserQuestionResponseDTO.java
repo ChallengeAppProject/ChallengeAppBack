@@ -17,7 +17,7 @@ public class UserQuestionResponseDTO {
 
     public UserQuestionResponseDTO mapFromUserQuestion(UserQuestion userQuestion){
 
-        this.user = new User(userQuestion.getUser().getId(), userQuestion.getUser().getUserName());
+        this.user = new User(userQuestion.getUser().getId(), userQuestion.getUser().getUsername());
       //  this.correctAnswers = userQuestion.correctAnswersCounter();
         this.challenge = new Challenge(userQuestion.challenge().getId(),userQuestion.challenge().getName());
         this.question = new Question(userQuestion.getQuestion().getId(), userQuestion.getQuestion().getChallengeQuestion());

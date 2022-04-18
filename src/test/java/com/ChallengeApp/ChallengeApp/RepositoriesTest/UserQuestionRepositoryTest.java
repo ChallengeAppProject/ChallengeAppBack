@@ -9,7 +9,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.jupiter.api.Assertions.*;
 @DataJpaTest
 class UserQuestionRepositoryTest {
 
@@ -25,7 +24,7 @@ class UserQuestionRepositoryTest {
         Question question1 = new Question();
         ChallengeAnswer challengeAnswer1 = new ChallengeAnswer();
         User user1 = new User();
-        user1.setUserName("Pepe");
+        user1.setUsername("Pepe");
         UserQuestion userQuestion1 = new UserQuestion();
 
 
@@ -36,7 +35,7 @@ class UserQuestionRepositoryTest {
 
         testEntityManager.flush();
 
-        assertThat(user1.getUserName(), equalTo("Pepe"));
+        assertThat(user1.getUsername(), equalTo("Pepe"));
 
 
     }

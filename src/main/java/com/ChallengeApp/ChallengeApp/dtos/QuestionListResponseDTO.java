@@ -15,7 +15,7 @@ public class QuestionListResponseDTO {
     private List<UserQuestion> userQuestionList=new ArrayList<UserQuestion>();
 
     public QuestionListResponseDTO mapFromQuestionsList(List<UserQuestion> userQuestionList){
-        this.user = new User(userQuestionList.get(0).getUser().getId(),userQuestionList.get(0).getUser().getUserName());
+        this.user = new User(userQuestionList.get(0).getUser().getId(),userQuestionList.get(0).getUser().getUsername());
         this.challenge = new Challenge(userQuestionList.get(0).challenge().getId(),userQuestionList.get(0).challenge().getName());
         this.correctAnswers =userQuestionList.get(0).correctAnswersCounter(userQuestionList);
         this.incorrectAnswers = userQuestionList.size()-correctAnswers;

@@ -5,6 +5,7 @@ import com.ChallengeApp.ChallengeApp.Models.User;
 import com.ChallengeApp.ChallengeApp.Repositories.UserRepository;
 import com.ChallengeApp.ChallengeApp.Services.ChallengeService;
 import com.ChallengeApp.ChallengeApp.Services.UserQuestionService;
+import com.ChallengeApp.ChallengeApp.Services.UserService;
 import com.ChallengeApp.ChallengeApp.dtos.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,6 +24,8 @@ public class UserQuestionController {
     private ChallengeService challengeService;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private UserService userService;
 
     public UserQuestionController(UserQuestionService userQuestionService, ChallengeService challengeService) {
         this.userQuestionService = userQuestionService;
@@ -31,7 +34,7 @@ public class UserQuestionController {
 
     private User getAuthUser() {
 
-        return userRepository.getById(1L);
+        return userService.getAuthenticatedUser();
     }
 
 

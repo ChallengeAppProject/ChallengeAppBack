@@ -10,10 +10,10 @@ public class UserTest {
     void userHaveIdAndUserName(){
 
         User user = new User();
-        user.setUserName("Juani");
+        user.setUsername("Juani");
         user.setId(1L);
 
-        assertEquals(user.getUserName(),"Juani");
+        assertEquals(user.getUsername(),"Juani");
         assertEquals(user.getId(), 1L);
 
     }
