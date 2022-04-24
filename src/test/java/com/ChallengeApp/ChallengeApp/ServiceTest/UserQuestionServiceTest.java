@@ -144,7 +144,7 @@ public class UserQuestionServiceTest {
         QuestionListResponseDTO questionListResponseDTO = new QuestionListResponseDTO();
         questionListResponseDTO.mapFromQuestionsList(userQuestions);
 
-        var sut =userQuestionService.getAllfindAllByUserAndQuestion_Challenge(user1,challenge);
+        var sut =userQuestionService.findAllByUserAndQuestion_Challenge(user1,challenge);
 
         assertEquals(sut.getUserQuestionList(), questionListResponseDTO.getUserQuestionList());
         assertEquals(sut.getCorrectAnswers(), questionListResponseDTO.getCorrectAnswers());

@@ -39,10 +39,10 @@ public class UserQuestionController {
 
 
     @GetMapping("/userQuestion/challenge/{id}")
-    public QuestionListResponseDTO getAllfindAllByUserAndQuestion_Challenge(@PathVariable Long id) {
+    public QuestionListResponseDTO findAllAnswersByUserAndQuestion_Challenge(@PathVariable Long id) {
         User user = getAuthUser();
         Challenge challenge = challengeService.getById(id);
-        return userQuestionService.getAllfindAllByUserAndQuestion_Challenge(user, challenge);
+        return userQuestionService.findAllByUserAndQuestion_Challenge(user, challenge);
     }
 
     @PostMapping("/userQuestion/challenge/{id}")

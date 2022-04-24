@@ -32,7 +32,7 @@ public class UserQuestionServiceImpl implements UserQuestionService {
     }
 
     @Override
-    public QuestionListResponseDTO getAllfindAllByUserAndQuestion_Challenge(User user, Challenge challenge){
+    public QuestionListResponseDTO findAllByUserAndQuestion_Challenge(User user, Challenge challenge){
         List<UserQuestion> userQuestions= userQuestionRepository.findAllByUserAndQuestion_Challenge(user, challenge);
         QuestionListResponseDTO questionListResponseDTO = new QuestionListResponseDTO();
         questionListResponseDTO.mapFromQuestionsList(userQuestions);
