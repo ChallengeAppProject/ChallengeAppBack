@@ -12,7 +12,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -170,6 +169,12 @@ public class QuestionServiceTest {
             questionResponseDTO.mapFromQuestion(question);
             questionResponseDTOList.add(questionResponseDTO);
         } );
+
+        /*var qList = questionList.stream().map(forEach(question -> {
+            QuestionResponseDTO questionResponseDTO = new QuestionResponseDTO();
+            questionResponseDTO.mapFromQuestion(question);
+            questionResponseDTOList.add(questionResponseDTO);
+        })).collect(Collectors.toList());*/
 
 
         //mediante Mockito pedimos que cuando se use la función .findAllByChallenge del repositorio mockeado
