@@ -156,13 +156,21 @@ public class QuestionServiceTest {
         questionList.add(question2);
         //Creamos una lista de DTO's
         List<QuestionResponseDTO> questionResponseDTOList = new ArrayList<QuestionResponseDTO>();
+        //PROGRAMACIÓN IMPERATIVA
         //Mediante un bucle forEach de la lista de questions añadimos un DTO a la lista de DTO's
         // y seteamos sus atributos con la función .mapFromQuestion de la clase QuestionResponseDTO
-        for(Question question : questionList){
+        /*for(Question question : questionList){
             QuestionResponseDTO questionResponseDTO = new QuestionResponseDTO();
             questionResponseDTO.mapFromQuestion(question);
             questionResponseDTOList.add(questionResponseDTO);
-        }
+        }*/
+        //PROGRAMACIÓN FUNCIONAL
+        questionList.forEach(question -> {
+            QuestionResponseDTO questionResponseDTO = new QuestionResponseDTO();
+            questionResponseDTO.mapFromQuestion(question);
+            questionResponseDTOList.add(questionResponseDTO);
+        } );
+
 
         //mediante Mockito pedimos que cuando se use la función .findAllByChallenge del repositorio mockeado
         // nos devuelva la lista de Questions
