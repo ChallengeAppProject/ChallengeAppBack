@@ -39,18 +39,27 @@ public class UserQuestionController {
 
 
     @GetMapping("/userQuestion/challenge/{id}")
-    public QuestionListResponseDTO findAllAnswersByUserAndQuestion_Challenge(@PathVariable Long id) {
-        User user = getAuthUser();
-        Challenge challenge = challengeService.getById(id);
-        return userQuestionService.findAllByUserAndQuestion_Challenge(user, challenge);
+    public ResponseEntity<QuestionListResponseDTO> findAllAnswersByUserAndQuestion_Challenge(@PathVariable Long id) {
+        try {
+            User user = getAuthUser();
+            Challenge challenge = challengeService.getById(id);
+            QuestionListResponseDTO questionListResponseDTO= userQuestionService.findAllByUserAndQuestion_Challenge(user, challenge);
+            return new ResponseEntity<>(questionListResponseDTO, HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+        }
+
+
     }
 
     @PostMapping("/userQuestion/challenge/{id}")
     public ResponseEntity<UserQuestionResponseDTO> addUserAnswer(@RequestBody UserQuestionRequestDTO userQuestionRequestDTO,
                                                                  @PathVariable Long id) {
         try {
+            User user = getAuthUser();
             userQuestionRequestDTO.setChallengeId(id);
-            userQuestionRequestDTO.setUserId(1L);
+            userQuestionRequestDTO.setUserId(user.getId());
             UserQuestionResponseDTO userQuestionResponseDTO = userQuestionService.save(userQuestionRequestDTO);
             return new ResponseEntity<UserQuestionResponseDTO>(userQuestionResponseDTO, HttpStatus.OK);
         } catch (NoSuchElementException e) {

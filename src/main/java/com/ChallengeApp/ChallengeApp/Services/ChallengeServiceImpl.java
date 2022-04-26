@@ -33,7 +33,6 @@ public class ChallengeServiceImpl implements ChallengeService {
     @Override
     public ChallengeResponseDTO get(Long id){
         Challenge challenge = challengeAppRepository.findById(id).get();
-        ChallengeResponseDTO challengeResponseDTO = new ChallengeResponseDTO();
         var challengeResponse = new ChallengeResponseDTO().mapFromChallenge(challenge);
 
         return challengeResponse;

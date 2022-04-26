@@ -15,6 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -148,7 +149,7 @@ public class QuestionServiceTest {
         Challenge challenge1 = new Challenge(1L,"testChallenge1");
 
         Question question1 = new Question(1L,"img1.jpg","This is useful?",challenge1);
-        Question question2 = new Question(2L,"img2.jpg","",challenge1);
+        Question question2 = new Question(2L,"img2.jpg","2+2?",challenge1);
         //añadimos las questions a una lista
         List<Question> questionList = new ArrayList<Question>();
         questionList.add(question1);
@@ -164,17 +165,18 @@ public class QuestionServiceTest {
             questionResponseDTOList.add(questionResponseDTO);
         }*/
         //PROGRAMACIÓN FUNCIONAL
-        questionList.forEach(question -> {
+        /*questionList.forEach(question -> {
             QuestionResponseDTO questionResponseDTO = new QuestionResponseDTO();
             questionResponseDTO.mapFromQuestion(question);
             questionResponseDTOList.add(questionResponseDTO);
-        } );
+        } );*/
 
-        /*var qList = questionList.stream().map(forEach(question -> {
+        var qList = questionList.stream().map(question -> {
             QuestionResponseDTO questionResponseDTO = new QuestionResponseDTO();
             questionResponseDTO.mapFromQuestion(question);
             questionResponseDTOList.add(questionResponseDTO);
-        })).collect(Collectors.toList());*/
+            return questionResponseDTOList;
+        }).collect(Collectors.toList());
 
 
         //mediante Mockito pedimos que cuando se use la función .findAllByChallenge del repositorio mockeado
@@ -189,9 +191,10 @@ public class QuestionServiceTest {
         var sut = questionSqlServiceImp.getAllByChallenge(challenge1);
 
         //THEN - ASSERT
-        assertEquals(questionResponseDTOList.size(), sut.size() );
+        assertEquals(sut.size(), questionResponseDTOList.size());
         assertThat(sut.get(0).getChallengeId(), equalTo(1L));
         assertThat(questionResponseDTOList.get(0).getChallengeId(), equalTo(1L));
+        assertThat(sut.get(1).getChallengeQuestion(), equalTo("2+2?"));
     }
 
 }

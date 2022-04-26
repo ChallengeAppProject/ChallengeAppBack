@@ -1,14 +1,14 @@
 package com.ChallengeApp.ChallengeApp.dtos;
 
-import com.ChallengeApp.ChallengeApp.Models.ChallengeAnswer;
-import com.ChallengeApp.ChallengeApp.Models.Question;
-import com.ChallengeApp.ChallengeApp.Models.User;
-import com.ChallengeApp.ChallengeApp.Models.UserQuestion;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserQuestionRequestDTO{
 
         public Long userId;

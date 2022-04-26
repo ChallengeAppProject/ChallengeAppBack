@@ -3,6 +3,8 @@ package com.ChallengeApp.ChallengeApp.ControllersTest;
 import com.ChallengeApp.ChallengeApp.Controllers.ChallengeController;
 import com.ChallengeApp.ChallengeApp.Models.Challenge;
 import com.ChallengeApp.ChallengeApp.Repositories.ChallengeAppRepository;
+import com.ChallengeApp.ChallengeApp.Repositories.RoleRepository;
+import com.ChallengeApp.ChallengeApp.Repositories.UserRepository;
 import com.ChallengeApp.ChallengeApp.Services.ChallengeService;
 import com.ChallengeApp.ChallengeApp.Services.QuestionService;
 import com.ChallengeApp.ChallengeApp.dtos.ChallengeResponseDTO;
@@ -32,12 +34,14 @@ class ChallengeControllerTest {
 
     @Autowired
     MockMvc mockMvc;
-
     @MockBean
     ChallengeService challengeService;
-
     @MockBean
     QuestionService questionService;
+    @MockBean
+    UserRepository userRepository;
+    @MockBean
+    RoleRepository roleRepository;
 
     @Mock
     ChallengeAppRepository challengeAppRepository;

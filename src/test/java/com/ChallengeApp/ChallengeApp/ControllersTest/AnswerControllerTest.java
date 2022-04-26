@@ -4,6 +4,8 @@ import com.ChallengeApp.ChallengeApp.Controllers.AnswerController;
 import com.ChallengeApp.ChallengeApp.Models.Challenge;
 import com.ChallengeApp.ChallengeApp.Models.ChallengeAnswer;
 import com.ChallengeApp.ChallengeApp.Models.Question;
+import com.ChallengeApp.ChallengeApp.Repositories.RoleRepository;
+import com.ChallengeApp.ChallengeApp.Repositories.UserRepository;
 import com.ChallengeApp.ChallengeApp.Services.AnswerService;
 import com.ChallengeApp.ChallengeApp.dtos.AnswerResponseDTO;
 import org.hamcrest.Matchers;
@@ -34,6 +36,10 @@ class AnswerControllerTest {
     MockMvc mockMvc;
     @MockBean
     AnswerService answerService;
+    @MockBean
+    UserRepository userRepository;
+    @MockBean
+    RoleRepository roleRepository;
     @Test
     void getAllMethodShouldReturnAListOfAnswers() throws Exception {
         Challenge challenge1 = new Challenge(1L, "Horario");

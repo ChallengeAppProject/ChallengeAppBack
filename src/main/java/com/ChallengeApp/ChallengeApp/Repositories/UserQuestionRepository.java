@@ -11,6 +11,6 @@ import java.util.List;
 @Repository
 public interface UserQuestionRepository  extends JpaRepository<UserQuestion, Long> {
     List<UserQuestion> findAllByUserAndQuestion_Challenge(User user, Challenge challenge);
-    //UserQuestion save(User user, Challenge challenge);
+
 
 }

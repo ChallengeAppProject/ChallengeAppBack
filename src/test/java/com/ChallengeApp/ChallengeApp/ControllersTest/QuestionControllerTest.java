@@ -4,37 +4,28 @@ import com.ChallengeApp.ChallengeApp.Controllers.QuestionController;
 import com.ChallengeApp.ChallengeApp.Models.Challenge;
 import com.ChallengeApp.ChallengeApp.Models.ChallengeAnswer;
 import com.ChallengeApp.ChallengeApp.Models.Question;
+import com.ChallengeApp.ChallengeApp.Repositories.RoleRepository;
+import com.ChallengeApp.ChallengeApp.Repositories.UserRepository;
 import com.ChallengeApp.ChallengeApp.Services.AnswerService;
 import com.ChallengeApp.ChallengeApp.Services.ChallengeService;
 import com.ChallengeApp.ChallengeApp.Services.QuestionService;
 import com.ChallengeApp.ChallengeApp.dtos.AnswerResponseDTO;
 import com.ChallengeApp.ChallengeApp.dtos.QuestionResponseDTO;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.jayway.jsonpath.internal.function.ParamType.JSON;
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.samePropertyValuesAs;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.fail;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.result.StatusResultMatchersExtensionsKt.isEqualTo;
 
 
 @WebMvcTest(QuestionController.class)
@@ -44,10 +35,12 @@ public class QuestionControllerTest {
 
     @MockBean
     ChallengeService challengeService;
-
+    @MockBean
+    UserRepository userRepository;
+    @MockBean
+    RoleRepository roleRepository;
     @MockBean
     QuestionService questionService;
-
     @MockBean
     AnswerService answerService;
 
