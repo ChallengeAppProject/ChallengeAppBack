@@ -13,11 +13,10 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 
-
+@Table(name = "challenge_answer")
 public class ChallengeAnswer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long id;
     private Boolean correctAnswer;
     private String textAnswer;
